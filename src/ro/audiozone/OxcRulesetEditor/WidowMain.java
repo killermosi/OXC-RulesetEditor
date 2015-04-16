@@ -16,8 +16,11 @@
  */
 package ro.audiozone.OxcRulesetEditor;
 
+import javax.swing.JOptionPane;
+
 /**
- *
+ * Main application window setup
+ * 
  * @author Silviu Ghita <killermosi@yahoo.com>
  */
 public class WidowMain extends javax.swing.JFrame {
@@ -26,6 +29,9 @@ public class WidowMain extends javax.swing.JFrame {
      * Creates new form WidowMain
      */
     public WidowMain() {
+        // Init main window
+        JOptionPane.showMessageDialog(null, "Configuration issue");
+        //System.exit(0);
         initComponents();
     }
 
@@ -39,6 +45,8 @@ public class WidowMain extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("ro/audiozone/OxcRulesetEditor/i18n_en-US"); // NOI18N
+        setTitle(bundle.getString("APPLICATION_TITLE")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,6 +91,7 @@ public class WidowMain extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new WidowMain().setVisible(true);
             }
