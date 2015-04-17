@@ -77,8 +77,8 @@ public class ServiceConfiguration {
     private ServiceConfiguration() {
         // Calculate the ini file path - current directory where the application resides, not from where it is run
         // (this means that the use should save the app somewhere on the disk where it has write access)
-        iniFileLocation = this.getClass().getClassLoader().getResource("").getPath() + "/" + iniFileName;
-        
+        iniFileLocation = System.getProperty("user.dir") + "/" + iniFileName;
+
         // Load the configuration from it
         iniFile = new ServiceIniFile(iniFileLocation);
         

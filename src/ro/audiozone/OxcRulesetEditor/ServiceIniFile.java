@@ -20,10 +20,7 @@ package ro.audiozone.OxcRulesetEditor;
 import java.util.*;
 import java.io.*;
 
-/**
- *
- * @author Silviu Ghita <killermosi@yahoo.com>
- */
+@SuppressWarnings("unchecked")
 public class ServiceIniFile extends ArrayList {
   private File userFileName;
   
@@ -35,12 +32,14 @@ public class ServiceIniFile extends ArrayList {
    * <p>
    * <b>Note:</b> By default the INI files are stored in the Application directory. To work with an INI file in another
    *              location, specify the full path name of the file in FileName.
+   * @param FileName The INI file name
    */
+  
   public ServiceIniFile(String FileName) {
     clear();
-    File userFileName = new File(FileName);
-    this.userFileName = userFileName;
-    if (userFileName.exists()) {
+    File iniFileName = new File(FileName);
+    this.userFileName = iniFileName;
+    if (iniFileName.exists()) {
       try {
         BufferedReader inbuf = new BufferedReader(new FileReader(this.userFileName));
         while (true) {
@@ -195,8 +194,7 @@ public class ServiceIniFile extends ArrayList {
    *
    */
   public Float ReadFloat(String Section, String key, Float defaultValue) {
-    Float value = new Float(0f);
-    value = defaultValue;
+    Float value = defaultValue;
     if (ValuePosition(Section, key) > 0) {
       int strLen = key.length()+1;
       value = Float.valueOf(get(ValuePosition(Section, key)).toString().substring(strLen, get(ValuePosition(Section, key)).toString().length()));
@@ -205,7 +203,7 @@ public class ServiceIniFile extends ArrayList {
   }
   
   /**
-   * Call Readbool to read a string value from an INI file. Section identifies the
+   * Call ReadBool to read a string value from an INI file. Section identifies the
    * section in the file that contains the desired key. key is the name of the key
    * from which to retrieve the value. defaultValue is the boolean value to return if the:<br>
    * - Section does not exist.<br>
@@ -345,7 +343,6 @@ public class ServiceIniFile extends ArrayList {
     int start = SectionPosition(Section);
     String s;
     boolean val = false;
-    int strLen = key.length()+1;;
     for (int i=start+1; i < size(); i++) {
       s = get(i).toString();
       if (s.startsWith(key+"=")) {
@@ -377,7 +374,6 @@ public class ServiceIniFile extends ArrayList {
     int start = SectionPosition(Section);
     String s;
     int pos =-1;
-    int strLen = key.length()+1;;
     for (int i=start+1; i < size(); i++) {
       s = get(i).toString();
       if (s.startsWith(key+"=")) {
@@ -514,7 +510,6 @@ public class ServiceIniFile extends ArrayList {
     } else {
       add("["+Section+"]");
       add(value);
-      ;
     }
   }
 }
