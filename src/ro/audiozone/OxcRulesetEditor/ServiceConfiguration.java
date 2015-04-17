@@ -54,6 +54,7 @@ public class ServiceConfiguration {
     private int windowPositionY; // No default, calculated to screen center
     private int windowWidth = 800;
     private int windowHeight = 600;
+    private boolean windowMaximized = false;
     private String interfaceLanguage = "en-US";
     
     /**
@@ -134,6 +135,9 @@ public class ServiceConfiguration {
         // - PositionY
         windowPositionY = iniFile.ReadInteger("Window", "PositionY", (screenHeight - windowHeight)/2);
         
+        // - Maximized
+        windowMaximized = iniFile.ReadBool("Window", "Maximized", windowMaximized);
+        
         // [Interface]
         // - Language
         String interLanguage = iniFile.ReadString("Interface", "Language", interfaceLanguage);
@@ -154,6 +158,7 @@ public class ServiceConfiguration {
         iniFile.WriteInteger("Window", "Height", windowHeight);
         iniFile.WriteInteger("Window", "PositionX", windowPositionX);
         iniFile.WriteInteger("Window", "PositionY", windowPositionY);
+        iniFile.WriteBool("Window", "Maximized", windowMaximized);
         iniFile.WriteString("Interface", "Language", interfaceLanguage);
         
         // And write it
@@ -216,6 +221,25 @@ public class ServiceConfiguration {
      */
     public int getWindowPositionY() {
         return windowPositionY;
+    }
+    
+    /**
+     * Setter for the window maximized state
+     * 
+     * @param maximized The state
+     */
+    public void setWindowMaximized(boolean maximized) {
+        windowMaximized = maximized;
+    }
+    
+    /**
+     * Getter for the window maximized state
+     * 
+     * @return 
+     */
+    public boolean isWindowMaximized()
+    {
+        return windowMaximized;
     }
     
     /**

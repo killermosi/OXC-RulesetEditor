@@ -221,7 +221,7 @@ public class ServiceIniFile extends ArrayList {
     boolean value=defaultValue;
     if (ValuePosition(Section, key) > 0) {
       int strLen = key.length()+1;
-      value = Boolean.getBoolean(get(ValuePosition(Section, key)).toString().substring(strLen, get(ValuePosition(Section, key)).toString().length()));
+      value = Boolean.valueOf(get(ValuePosition(Section, key)).toString().substring(strLen, get(ValuePosition(Section, key)).toString().length()));
     }
     return value;
   }

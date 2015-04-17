@@ -16,6 +16,8 @@
  */
 package ro.audiozone.OxcRulesetEditor;
 
+import javax.swing.JFrame;
+
 /**
  * Main application window setup
  * 
@@ -44,8 +46,12 @@ public class WidowMain extends javax.swing.JFrame {
         initComponents();
         
         // Configure the main window
-        setLocation(config.getWindowPositionX(), config.getWindowPositionY());
-        setSize(config.getWindowWidth(), config.getWindowHeight());
+        if (config.isWindowMaximized()) {
+            setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        } else {
+            setLocation(config.getWindowPositionX(), config.getWindowPositionY());
+            setSize(config.getWindowWidth(), config.getWindowHeight());
+        }
     }
 
     /**
@@ -82,9 +88,15 @@ public class WidowMain extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         ServiceConfiguration config = ServiceConfiguration.getInstance();
         
-        // Update the window poition and size in the configuration
-        config.setWindowSize(getSize().width, getSize().height);
-        config.setWindowPosition(getLocation().x, getLocation().y);
+        // Update the window position and size in the configuration
+        boolean isWindowMaximized = (getExtendedState() == JFrame.MAXIMIZED_BOTH);
+
+        config.setWindowMaximized(isWindowMaximized);
+        if (!isWindowMaximized) {
+            // The position and size will update only if the window is not maximized
+            config.setWindowSize(getSize().width, getSize().height);
+            config.setWindowPosition(getLocation().x, getLocation().y);
+        }
         
         // Save the configuration
         if (!config.saveConfiguration()) {
