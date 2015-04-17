@@ -54,6 +54,18 @@ public class ServiceConfiguration {
     private int windowPositionY; // No default, calculated to screen center
     private int windowWidth = 800;
     private int windowHeight = 600;
+    private String interfaceLanguage = "en-US";
+    
+    /**
+     * The supported languages list - I don't know how or if this list
+     * can be automatically built based on the available bundles
+     */
+    private final String[] supportedLanguages = new String[] {"en-US", "ro-RO"};
+    
+    /**
+     * Internal stuff
+     */
+    private final int windowMinSize = 200;
     
     /**
      * Retrieve the configuration instance
@@ -90,6 +102,8 @@ public class ServiceConfiguration {
      * Initialize the internal configuration with values from the file and calculate the defaults
      */
     private void initConfiguration() {
+        /* For 100% completion, we'll run some checks on the values that were read from the ini file */
+        
         // Meta: determine the (virtual) screen resolution of the display to be able to place the window dead center
         // if the position values were not found in the ini file. The window may end up being split between two monitors
         // under certain circumstances, but consdering that the new position will be saved in the config file,
@@ -97,16 +111,36 @@ public class ServiceConfiguration {
         int screenWidth  = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         int screenHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
+        // Note: Java enforces some limits regarding window placement and size, thse checks will only improve the UX a bit
         
         // [Window]
         // - Width
-        windowWidth = iniFile.ReadInteger("Window", "Width", windowWidth);
+        int winWidth = iniFile.ReadInteger("Window", "Width", windowWidth);
+        if (winWidth < windowMinSize) {
+            winWidth = windowWidth;
+        }
+        windowWidth = winWidth;
+        
         // - Height
-        windowHeight = iniFile.ReadInteger("Window", "Height", windowHeight);
+        int winHeight = iniFile.ReadInteger("Window", "Height", windowHeight);
+        if (winHeight < windowMinSize) {
+            winHeight = windowHeight;
+        }
+        windowHeight = winHeight;
+        
         // - PositionX
         windowPositionX = iniFile.ReadInteger("Window", "PositionX", (screenWidth - windowWidth)/2);
+        
         // - PositionY
         windowPositionY = iniFile.ReadInteger("Window", "PositionY", (screenHeight - windowHeight)/2);
+        
+        // [Interface]
+        // - Language
+        String interLanguage = iniFile.ReadString("Interface", "Language", interfaceLanguage);
+        if (!java.util.Arrays.asList(supportedLanguages).contains(interLanguage)) {
+            interLanguage = interfaceLanguage;
+        }
+        interfaceLanguage = interLanguage;
     }
     
     /**
@@ -120,6 +154,7 @@ public class ServiceConfiguration {
         iniFile.WriteInteger("Window", "Height", windowHeight);
         iniFile.WriteInteger("Window", "PositionX", windowPositionX);
         iniFile.WriteInteger("Window", "PositionY", windowPositionY);
+        iniFile.WriteString("Interface", "Language", interfaceLanguage);
         
         // And write it
         return iniFile.UpdateFile();
@@ -181,5 +216,33 @@ public class ServiceConfiguration {
      */
     public int getWindowPositionY() {
         return windowPositionY;
+    }
+    
+    /**
+     * Setter for the interface language
+     * 
+     * @param language The new language
+     */
+    public void setInterfaceLanguage(String language) {
+        interfaceLanguage = language;
+    }
+    
+    /**
+     * Getter for the interface language
+     * 
+     * @return 
+     */
+    public String getInterfaceLanguage() {
+        return interfaceLanguage;
+    }
+    
+    /**
+     * Getter for the (internal) list of supported languages (there is no setter for this item,
+     * as it is hard-coded and not stored in the actual INI file).
+     * 
+     * @return 
+     */
+    public String[] getSupportedLanguages() {
+        return supportedLanguages;
     }
 }

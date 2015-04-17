@@ -24,11 +24,21 @@ package ro.audiozone.OxcRulesetEditor;
 public class WidowMain extends javax.swing.JFrame {
     
     /**
+     * The language to be used for the interface
+     */
+    final private java.util.ResourceBundle lang;
+    
+    /**
      * Creates new form WidowMain
      */
     public WidowMain() {
         // Init configuration
         ServiceConfiguration config = ServiceConfiguration.getInstance();
+        
+        // Set language
+        lang = java.util.ResourceBundle.getBundle(
+                "ro/audiozone/OxcRulesetEditor/i18n_" + config.getInterfaceLanguage()
+        );
         
         // Init main window
         initComponents();
@@ -48,8 +58,7 @@ public class WidowMain extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("ro/audiozone/OxcRulesetEditor/i18n_en-US"); // NOI18N
-        setTitle(bundle.getString("APPLICATION_TITLE")); // NOI18N
+        setTitle(lang.getString("APPLICATION_TITLE"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -79,8 +88,7 @@ public class WidowMain extends javax.swing.JFrame {
         
         // Save the configuration
         if (!config.saveConfiguration()) {
-            java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("ro/audiozone/OxcRulesetEditor/i18n_en-US");
-            javax.swing.JOptionPane.showMessageDialog(null, bundle.getString("CONFIGURATION_SAVE_ERROR"));
+            javax.swing.JOptionPane.showMessageDialog(null, lang.getString("CONFIGURATION_SAVE_ERROR"));
         }
     }//GEN-LAST:event_formWindowClosing
 
