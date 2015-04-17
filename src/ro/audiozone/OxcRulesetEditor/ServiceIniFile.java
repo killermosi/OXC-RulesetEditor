@@ -86,18 +86,17 @@ public class ServiceIniFile extends ArrayList {
    */
   public boolean UpdateFile() {
     try {
-      BufferedWriter outbuf = new BufferedWriter(new FileWriter(this.userFileName, false));
-      int i=0;
-      while (i<size()) {
-        String s = get(i).toString();
-        if (s == null) {
-          break;
-        }
-        outbuf.write(s);
-        outbuf.newLine();
-        i++;
-      }
-      outbuf.close();
+        try (BufferedWriter outbuf = new BufferedWriter(new FileWriter(this.userFileName, false))) {
+            int i=0;
+            while (i<size()) {
+                String s = get(i).toString();
+                if (s == null) {
+                    break;
+                }
+                outbuf.write(s);
+                outbuf.newLine();
+                i++;
+            } }
       return true;
     } catch ( IOException ioe ) {
       return false;

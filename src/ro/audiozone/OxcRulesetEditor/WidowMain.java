@@ -29,10 +29,19 @@ public class WidowMain extends javax.swing.JFrame {
      * Creates new form WidowMain
      */
     public WidowMain() {
-        // Init main window
-        JOptionPane.showMessageDialog(null, "Configuration issue");
+        // Init configuration
+        ServiceConfiguration config = ServiceConfiguration.getInstance();
+
+        // JOptionPane.showMessageDialog(null, "Configuration issue");
         //System.exit(0);
+
+        
+        // Init main window
         initComponents();
+        
+        // Configure the main window
+        setLocation(config.getWindowPositionX(), config.getWindowPositionY());
+        setSize(config.getWindowWidth(), config.getWindowHeight());
     }
 
     /**

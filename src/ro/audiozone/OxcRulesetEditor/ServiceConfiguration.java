@@ -16,6 +16,8 @@
  */
 package ro.audiozone.OxcRulesetEditor;
 
+import java.awt.Toolkit;
+
 /**
  * Handles configuration data and defaults
  * 
@@ -31,27 +33,27 @@ public class ServiceConfiguration {
     private static ServiceConfiguration instance;
     
     /**
-     * Ini file handling
+     * Ini file handler
      */
-    private ServiceIniFile iniFile;
+    private final ServiceIniFile iniFile;
     
     /**
-     * The ini file default
+     * The ini file name
      */
     private final String iniFileName = "config.ini";
     
     /**
-     * The location from which the file is read
+     * The location from which the file is read (null if the file does not exist)
      */
-    private String iniFileLocation;
+    private String iniFileLocation = null;
     
     /**
      * Various options
      */
-    private int windowPositionX = 0;
-    private int windowPositionY = 0;
-    private int windowSizeX = 800;
-    private int windowSizeY = 600;
+    private int windowPositionX; // No default, calculated to screen center
+    private int windowPositionY; // No default, calculated to screen center
+    private int windowWidth = 800;
+    private int windowHeight = 600;
     
     /**
      * Retrieve the configuration instance
@@ -73,14 +75,111 @@ public class ServiceConfiguration {
      * Class initialization: read the configuration file and store the values
      */
     private ServiceConfiguration() {
+        // Calculate the ini file path - current directory where the application resides, not from where it is run
+        // (this means that the use should save the app somewhere on the disk where it has write access)
+        iniFileLocation = this.getClass().getClassLoader().getResource("").getPath() + "/" + iniFileName;
         
+        // Load the configuration from it
+        iniFile = new ServiceIniFile(iniFileLocation);
+        
+        // And init the configuration
+        initConfiguration();
     }
     
     /**
-     * Determine the location of the ini file
+     * Initialize the internal configuration with values from the file and calculate the defaults
+     */
+    private void initConfiguration() {
+        // Meta: determine the (virtual) screen resolution of the display to be able to place the window dead center
+        // if the position values were not found in the ini file. The window may end up being split between two monitors
+        // under certain circumstances, but consdering that the new position will be saved in the config file,
+        // this will be a small one-time startup nuisance at most.
+        int screenWidth  = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        int screenHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+
+        
+        // [Window]
+        // - Width
+        windowWidth = iniFile.ReadInteger("Window", "Width", windowWidth);
+        // - Height
+        windowHeight = iniFile.ReadInteger("Window", "Height", windowHeight);
+        // - PositionX
+        windowPositionX = iniFile.ReadInteger("Window", "PositionX", (screenWidth - windowWidth)/2);
+        // - PositionY
+        windowPositionY = iniFile.ReadInteger("Window", "PositionY", (screenHeight - windowHeight)/2);
+    }
+    
+    /**
+     * Save the configuration to file
+     * 
+     * @return
+     */
+    public boolean saveConfiguration() {
+        // Update the data
+        iniFile.WriteInteger("Window", "Width", windowWidth);
+        iniFile.WriteInteger("Window", "Height", windowHeight);
+        iniFile.WriteInteger("Window", "PositionX", windowPositionX);
+        iniFile.WriteInteger("Window", "PositionY", windowPositionY);
+        
+        // And write it
+        return iniFile.UpdateFile();
+    }
+    
+    /**
+     * Setter for the window size
+     * 
+     * @param width The window width
+     * @param height The window height
+     */
+    public void setWindowSize(int width, int height) {
+        windowWidth = width;
+        windowHeight = height;
+    }
+    
+    /**
+     * Getter for the window width
+     * 
      * @return 
      */
-    private String getIniFileLocation() {
-        return "";
+    public int getWindowWidth() {
+        return windowWidth;
+    }
+    
+    /**
+     * Getter for the window height
+     * 
+     * @return 
+     */
+    public int getWindowHeight() {
+        return windowHeight;
+    }
+    
+    /**
+     * Setter for the window position
+     * 
+     * @param positionX The position on X axis (horizontal)
+     * @param positionY The position on Y axis (vertical)
+     */
+    public void setWindowPosition(int positionX, int positionY) {
+        windowPositionX = positionX;
+        windowPositionY = positionY;
+    }
+    
+    /**
+     * Getter for the window X (horizontal) position
+     * 
+     * @return 
+     */
+    public int getWindowPositionX() {
+        return windowPositionX;
+    }
+    
+    /**
+     * Getter for the window Y (vertical) position
+     * 
+     * @return 
+     */
+    public int getWindowPositionY() {
+        return windowPositionY;
     }
 }
