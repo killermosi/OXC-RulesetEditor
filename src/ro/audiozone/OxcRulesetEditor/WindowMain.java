@@ -23,7 +23,19 @@ import javax.swing.JFrame;
  * 
  * @author Silviu Ghita <killermosi@yahoo.com>
  */
-public class WindowMain extends WindowAbstract {
+public class WindowMain extends javax.swing.JFrame {
+    
+    /**
+     * Application configuration
+     */
+    final protected ServiceConfiguration config = ServiceConfiguration.getInstance();
+    
+    /**
+     * i18n support
+     */
+    final protected java.util.ResourceBundle lang = java.util.ResourceBundle.getBundle(
+                "ro/audiozone/OxcRulesetEditor/i18n_" + config.getInterfaceLanguage()
+    );
     
     /**
      * Creates new form WidowMain
@@ -39,6 +51,9 @@ public class WindowMain extends WindowAbstract {
             setLocation(config.getWindowPositionX(), config.getWindowPositionY());
             setSize(config.getWindowWidth(), config.getWindowHeight());
         }
+        
+        // Show the disclaimer
+        new DialogDisclaimer(this, true).setVisible(true);
     }
 
     /**
@@ -51,7 +66,7 @@ public class WindowMain extends WindowAbstract {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle(lang.getString("APPLICATION_TITLE"));
+        setTitle(lang.getString("Application.Title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -85,7 +100,7 @@ public class WindowMain extends WindowAbstract {
         
         // Save the configuration
         if (!config.saveConfiguration()) {
-            javax.swing.JOptionPane.showMessageDialog(null, lang.getString("CONFIGURATION_SAVE_ERROR"));
+            javax.swing.JOptionPane.showMessageDialog(null, lang.getString("Application.ConfigurationSaveError"));
         }
     }//GEN-LAST:event_formWindowClosing
 

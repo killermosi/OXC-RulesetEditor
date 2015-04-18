@@ -17,14 +17,29 @@
 package ro.audiozone.OxcRulesetEditor;
 
 /**
- * Provides basic amenities for windows
+ * Provides basic amenities for dialogs
  * 
  * @author Silviu Ghita <killermosi@yahoo.com>
  */
-public abstract class WindowAbstract extends javax.swing.JFrame {
+public abstract class DialogAbstract extends javax.swing.JDialog {
+    /**
+     * Application configuration
+     */
     final protected ServiceConfiguration config = ServiceConfiguration.getInstance();
     
+    /**
+     * i18n support
+     */
     final protected java.util.ResourceBundle lang = java.util.ResourceBundle.getBundle(
                 "ro/audiozone/OxcRulesetEditor/i18n_" + config.getInterfaceLanguage()
     );
+    
+    /**
+     * Creates new form DialogDisclaimer
+     * @param parent The parent
+     * @param modal If the dialog is modal
+     */
+    public DialogAbstract(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+    }
 }

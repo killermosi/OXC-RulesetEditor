@@ -1,0 +1,7 @@
+==================================================
+TL;DR version: USE THIS SOFTWARE AT YOUR OWN RISK!
+==================================================
+
+This is a Work-In-Progress application. There are a lot of things that won't work, will break or will event not work and break at the same time.
+
+While care has been used when writing the application, I (the author) cannot guarantee under any circumstances that this application won't break anything on the system used, won't cause any kind of data loss or that will even do what it's supposed to do!
