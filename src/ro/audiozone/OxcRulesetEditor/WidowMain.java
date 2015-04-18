@@ -19,29 +19,16 @@ package ro.audiozone.OxcRulesetEditor;
 import javax.swing.JFrame;
 
 /**
- * Main application window setup
+ * Main application window
  * 
  * @author Silviu Ghita <killermosi@yahoo.com>
  */
-public class WidowMain extends javax.swing.JFrame {
-    
-    /**
-     * The language to be used for the interface
-     */
-    final private java.util.ResourceBundle lang;
+public class WidowMain extends WindowAbstract {
     
     /**
      * Creates new form WidowMain
      */
     public WidowMain() {
-        // Init configuration
-        ServiceConfiguration config = ServiceConfiguration.getInstance();
-        
-        // Set language
-        lang = java.util.ResourceBundle.getBundle(
-                "ro/audiozone/OxcRulesetEditor/i18n_" + config.getInterfaceLanguage()
-        );
-        
         // Init main window
         initComponents();
         
@@ -86,14 +73,12 @@ public class WidowMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        ServiceConfiguration config = ServiceConfiguration.getInstance();
-        
         // Update the window position and size in the configuration
         boolean isWindowMaximized = (getExtendedState() == JFrame.MAXIMIZED_BOTH);
 
         config.setWindowMaximized(isWindowMaximized);
         if (!isWindowMaximized) {
-            // The position and size will update only if the window is not maximized
+            // Update position and size only if the window is not maximized
             config.setWindowSize(getSize().width, getSize().height);
             config.setWindowPosition(getLocation().x, getLocation().y);
         }
