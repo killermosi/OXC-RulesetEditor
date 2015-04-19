@@ -16,6 +16,10 @@
  */
 package ro.audiozone.OxcRulesetEditor;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 
 /**
@@ -43,20 +47,29 @@ public class WindowMain extends javax.swing.JFrame {
     public WindowMain() {
         // Init main window
         initComponents();
-        
-        // Configure the main window
+
+        // Restore windo size and position
+        setLocation(config.getWindowPositionX(), config.getWindowPositionY());
+        setSize(config.getWindowWidth(), config.getWindowHeight());
         if (config.isWindowMaximized()) {
             setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        } else {
-            setLocation(config.getWindowPositionX(), config.getWindowPositionY());
-            setSize(config.getWindowWidth(), config.getWindowHeight());
         }
+        
+        // Set the window icon(s)
+        final List<Image> icons = new ArrayList<>();
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-16.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-32.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-64.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-128.png")));
+        setIconImages(icons);
         
         // Show the disclaimer
         if (!config.isDisclaimerShown() || !config.isDisclaimerDoNotShowAgain()) {
             new DialogDisclaimer(this, true).setVisible(true);
         }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

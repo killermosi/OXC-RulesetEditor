@@ -71,6 +71,7 @@ public class DialogDisclaimer extends DialogAbstract {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(lang.getString("Application.Title"));
         setPreferredSize(new java.awt.Dimension(600, 400));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

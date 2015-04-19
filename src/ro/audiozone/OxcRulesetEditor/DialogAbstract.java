@@ -16,6 +16,11 @@
  */
 package ro.audiozone.OxcRulesetEditor;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Provides basic amenities for dialogs
  * 
@@ -35,11 +40,27 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
     );
     
     /**
-     * Creates new form DialogDisclaimer
+     * Creates new Dialog
+     * 
      * @param parent The parent
      * @param modal If the dialog is modal
      */
     public DialogAbstract(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        setWindowIcons();
+    }
+    
+    /**
+     * Set dialog icons in various sizes
+     * 
+     * TODO: is 256 needed too?
+     */
+    private void setWindowIcons() {
+        final List<Image> icons = new ArrayList<>();
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-16.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-32.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-64.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-128.png")));
+        setIconImages(icons);
     }
 }
