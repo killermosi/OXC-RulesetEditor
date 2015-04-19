@@ -56,6 +56,8 @@ public class ServiceConfiguration {
     private int windowHeight = 600;
     private boolean windowMaximized = false;
     private String interfaceLanguage = "en-US";
+    private boolean disclaimerShown = false;
+    private boolean disclaimerDoNotShowAgain = false;
     
     /**
      * The supported languages list - I don't know how or if this list
@@ -145,6 +147,12 @@ public class ServiceConfiguration {
             interLanguage = interfaceLanguage;
         }
         interfaceLanguage = interLanguage;
+        
+        // [Disclaimer]
+        // - Shown
+        disclaimerShown = iniFile.ReadBool("Disclaimer", "Shown", disclaimerShown);
+        // - DoNotShowAgain
+        disclaimerDoNotShowAgain = iniFile.ReadBool("Disclaimer", "DoNotShowAgain", disclaimerDoNotShowAgain);
     }
     
     /**
@@ -160,6 +168,8 @@ public class ServiceConfiguration {
         iniFile.WriteInteger("Window", "PositionY", windowPositionY);
         iniFile.WriteBool("Window", "Maximized", windowMaximized);
         iniFile.WriteString("Interface", "Language", interfaceLanguage);
+        iniFile.WriteBool("Disclaimer", "Shown", disclaimerShown);
+        iniFile.WriteBool("Disclaimer", "DoNotShowAgain", disclaimerDoNotShowAgain);
         
         // And write it
         return iniFile.UpdateFile();
@@ -269,4 +279,41 @@ public class ServiceConfiguration {
     public String[] getSupportedLanguages() {
         return supportedLanguages;
     }
+    
+    /**
+     * Setter for the disclaimer shown state
+     * 
+     * @param shown The state
+     */
+    public void setDisclaimerShown(boolean shown) {
+        disclaimerShown = shown;
+    }
+    
+    /**
+     * Getter for the disclaimer shown state
+     * 
+     * @return 
+     */
+    public boolean isDisclaimerShown() {
+        return disclaimerShown;
+    }
+    
+    /**
+     * Setter for the disclaimer do not show again state
+     * 
+     * @param shown The state
+     */
+    public void setDisclaimerDoNotShowAgain(boolean shown) {
+        disclaimerDoNotShowAgain = shown;
+    }
+    
+    /**
+     * Getter for the disclaimer do not show again state
+     * 
+     * @return 
+     */
+    public boolean isDisclaimerDoNotShowAgain() {
+        return disclaimerDoNotShowAgain;
+    }
+    
 }

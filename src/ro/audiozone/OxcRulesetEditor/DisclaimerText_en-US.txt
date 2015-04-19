@@ -1,6 +1,6 @@
-==================================================
-TL;DR version: USE THIS SOFTWARE AT YOUR OWN RISK!
-==================================================
+===================================
+USE THIS SOFTWARE AT YOUR OWN RISK!
+===================================
 
 This is a Work-In-Progress application. There are a lot of things that won't work, will break or will event not work and break at the same time.
 

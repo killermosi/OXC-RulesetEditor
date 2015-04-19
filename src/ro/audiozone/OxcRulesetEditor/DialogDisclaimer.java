@@ -18,6 +18,9 @@ package ro.audiozone.OxcRulesetEditor;
 
 import java.awt.event.WindowEvent;
 import java.util.Scanner;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 /**
  * The disclaimer
@@ -34,7 +37,19 @@ public class DialogDisclaimer extends DialogAbstract {
     public DialogDisclaimer(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        // Set the disclaimer text
         DisclaimerText.setText(new Scanner(getClass().getResourceAsStream("DisclaimerText_" + config.getInterfaceLanguage() + ".txt"), "UTF-8").useDelimiter("\\A").next());
+        // Center the disclaimer text
+        StyledDocument document = DisclaimerText.getStyledDocument();
+        SimpleAttributeSet center = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        document.setParagraphAttributes(0, document.getLength(), center, false);
+        
+        // Hide the "Don't show again" checkbox if the disclaimer is shown for the first time
+        if (!config.isDisclaimerShown()) {
+            DontShowDisclaimerCheckbox.setVisible(false);
+        }
     }
 
     /**
@@ -131,8 +146,8 @@ public class DialogDisclaimer extends DialogAbstract {
     }//GEN-LAST:event_CloseButtonActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
-        System.out.println("disclaimer closed");
+        config.setDisclaimerShown(true);
+        config.setDisclaimerDoNotShowAgain(DontShowDisclaimerCheckbox.isSelected());
     }//GEN-LAST:event_formWindowClosing
 
     /**

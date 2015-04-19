@@ -53,7 +53,9 @@ public class WindowMain extends javax.swing.JFrame {
         }
         
         // Show the disclaimer
-        new DialogDisclaimer(this, true).setVisible(true);
+        if (!config.isDisclaimerShown() || !config.isDisclaimerDoNotShowAgain()) {
+            new DialogDisclaimer(this, true).setVisible(true);
+        }
     }
 
     /**
