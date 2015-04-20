@@ -56,11 +56,12 @@ public class WindowMain extends javax.swing.JFrame {
         }
         
         // Set the window icon(s)
+        final String imagesLocation = "/ro/audiozone/OxcRulesetEditor/Images/";
         final List<Image> icons = new ArrayList<>();
-        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-16.png")));
-        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-32.png")));
-        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-64.png")));
-        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-128.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesLocation + "icon-openxcom-16.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesLocation + "icon-openxcom-32.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesLocation + "icon-openxcom-64.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesLocation + "icon-openxcom-128.png")));
         setIconImages(icons);
         
         // Show the disclaimer

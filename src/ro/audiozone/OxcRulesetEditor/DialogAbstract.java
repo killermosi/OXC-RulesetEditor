@@ -56,11 +56,12 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
      * TODO: is 256 needed too?
      */
     private void setWindowIcons() {
+        final String imagesLocation = "/ro/audiozone/OxcRulesetEditor/Images/";
         final List<Image> icons = new ArrayList<>();
-        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-16.png")));
-        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-32.png")));
-        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-64.png")));
-        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon-openxcom-128.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesLocation + "icon-openxcom-16.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesLocation + "icon-openxcom-32.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesLocation + "icon-openxcom-64.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesLocation + "icon-openxcom-128.png")));
         setIconImages(icons);
     }
 }
