@@ -18,6 +18,7 @@ package ro.audiozone.OxcRulesetEditor;
 
 import java.awt.event.WindowEvent;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -50,6 +51,9 @@ public class DialogDisclaimer extends DialogAbstract {
         if (!config.isDisclaimerShown()) {
             DontShowDisclaimerCheckbox.setVisible(false);
         }
+        
+        // Set the close button icon
+        CloseButton.setIcon(new ImageIcon(getClass().getResource(imagesStorage + "icon-oxygen-dialog-ok-32.png")));
     }
 
     /**
