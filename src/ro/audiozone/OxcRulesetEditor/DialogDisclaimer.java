@@ -18,7 +18,6 @@ package ro.audiozone.OxcRulesetEditor;
 
 import java.awt.event.WindowEvent;
 import java.util.Scanner;
-import javax.swing.ImageIcon;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -51,9 +50,6 @@ public class DialogDisclaimer extends DialogAbstract {
         if (!config.isDisclaimerShown()) {
             DontShowDisclaimerCheckbox.setVisible(false);
         }
-        
-        // Set the close button icon
-        CloseButton.setIcon(new ImageIcon(getClass().getResource(imagesStorage + "icon-oxygen-dialog-ok-32.png")));
     }
 
     /**
@@ -95,9 +91,10 @@ public class DialogDisclaimer extends DialogAbstract {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
         );
 
+        CloseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-dialog-ok-32.png"))); // NOI18N
         CloseButton.setText(lang.getString("DialogDisclaimer.CloseButton.text"));
         CloseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,7 +120,7 @@ public class DialogDisclaimer extends DialogAbstract {
                     .addComponent(TitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(DontShowDisclaimerCheckbox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                         .addComponent(CloseButton))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
