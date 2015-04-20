@@ -20,6 +20,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -42,6 +43,11 @@ public class WindowMain extends javax.swing.JFrame {
     );
     
     /**
+     * Where various images can be found
+     */
+    final protected String imagesStorage = "/ro/audiozone/OxcRulesetEditor/Images/";
+    
+    /**
      * Creates new form WidowMain
      */
     public WindowMain() {
@@ -56,12 +62,11 @@ public class WindowMain extends javax.swing.JFrame {
         }
         
         // Set the window icon(s)
-        final String imagesLocation = "/ro/audiozone/OxcRulesetEditor/Images/";
         final List<Image> icons = new ArrayList<>();
-        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesLocation + "icon-openxcom-16.png")));
-        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesLocation + "icon-openxcom-32.png")));
-        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesLocation + "icon-openxcom-64.png")));
-        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesLocation + "icon-openxcom-128.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesStorage + "icon-openxcom-16.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesStorage + "icon-openxcom-32.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesStorage + "icon-openxcom-64.png")));
+        icons.add(Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagesStorage + "icon-openxcom-128.png")));
         setIconImages(icons);
         
         // Show the disclaimer
@@ -116,7 +121,13 @@ public class WindowMain extends javax.swing.JFrame {
         
         // Save the configuration
         if (!config.saveConfiguration()) {
-            javax.swing.JOptionPane.showMessageDialog(null, lang.getString("Application.ConfigurationSaveError"));
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    lang.getString("Application.ConfigurationSaveError"),
+                    lang.getString("Application.ConfigurationSaveErrorTitle"),
+                    javax.swing.JOptionPane.ERROR_MESSAGE,
+                    new ImageIcon(getClass().getResource(imagesStorage + "icon-oxygen-dialog-warning-64.png"))
+            );
         }
     }//GEN-LAST:event_formWindowClosing
 
