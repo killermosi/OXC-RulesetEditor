@@ -19,7 +19,8 @@ package ro.audiozone.OxcRulesetEditor;
 import java.awt.event.WindowEvent;
 
 /**
- *
+ * "About" dialog
+ * 
  * @author Silviu Ghita <killermosi@yahoo.com>
  */
 public class DialogAbout extends DialogAbstract {

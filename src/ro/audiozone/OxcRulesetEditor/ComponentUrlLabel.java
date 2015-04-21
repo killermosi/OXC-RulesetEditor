@@ -16,10 +16,6 @@
  */
 package ro.audiozone.OxcRulesetEditor;
 
-/**
- *
- * @author Silviu Ghita <killermosi@yahoo.com>
- */
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;

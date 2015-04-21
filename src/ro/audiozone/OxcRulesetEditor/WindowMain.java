@@ -86,7 +86,7 @@ public class WindowMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        MainToolbar = new javax.swing.JToolBar();
+        MainToolbar = new ro.audiozone.OxcRulesetEditor.ComponentCustomToolbar();
         MainBtnNew = new javax.swing.JButton();
         MainBtnOpen = new javax.swing.JButton();
         MainBtnSave = new javax.swing.JButton();
@@ -96,7 +96,7 @@ public class WindowMain extends javax.swing.JFrame {
         MainBtnRedo = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         MainBtnConfiguration = new javax.swing.JButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         MainBtnAbout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -107,9 +107,7 @@ public class WindowMain extends javax.swing.JFrame {
             }
         });
 
-        MainToolbar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         MainToolbar.setFloatable(false);
-        MainToolbar.setRollover(true);
 
         MainBtnNew.setBackground(new java.awt.Color(214, 210, 208));
         MainBtnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-document-new-32.png"))); // NOI18N
@@ -187,13 +185,13 @@ public class WindowMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainToolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(MainToolbar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(MainToolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 254, Short.MAX_VALUE))
+                .addComponent(MainToolbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 411, Short.MAX_VALUE))
         );
 
         pack();
@@ -274,7 +272,7 @@ public class WindowMain extends javax.swing.JFrame {
     private javax.swing.JButton MainBtnSave;
     private javax.swing.JButton MainBtnSaveAs;
     private javax.swing.JButton MainBtnUndo;
-    private javax.swing.JToolBar MainToolbar;
+    private ro.audiozone.OxcRulesetEditor.ComponentCustomToolbar MainToolbar;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
