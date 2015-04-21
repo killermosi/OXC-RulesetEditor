@@ -46,7 +46,7 @@ public class DialogDisclaimer extends DialogAbstract {
         } catch (Exception exc) {
             // If that failed for some reason, look for one in the first available language (en-US),
             // and if for some reason this disclaimer cannot be loaded too, simply let the app die
-            disclaimerText = new Scanner(getClass().getResourceAsStream("DisclaimerText_" + config.getSupportedLanguages()[0] + ".txt"), "UTF-8").useDelimiter("\\A").next();
+            disclaimerText = new Scanner(getClass().getResourceAsStream("DisclaimerText_" + config.getDefaultLanguage() + ".txt"), "UTF-8").useDelimiter("\\A").next();
         }
         DisclaimerText.setText(disclaimerText);
         

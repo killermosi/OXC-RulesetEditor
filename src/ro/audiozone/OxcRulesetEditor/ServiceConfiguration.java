@@ -46,6 +46,14 @@ public class ServiceConfiguration {
      * The location from which the file is read (null if the file does not exist)
      */
     private String iniFileLocation = null;
+
+    /**
+     * The supported languages list - I don't know how or if this list
+     * can be automatically built based on the available bundles
+     * 
+     * @note en-US _MUST_ be the first element in the list
+     */
+    private final String[] supportedLanguages = new String[] {"en-US"};
     
     /**
      * Various options
@@ -55,17 +63,9 @@ public class ServiceConfiguration {
     private int windowWidth = 800;
     private int windowHeight = 600;
     private boolean windowMaximized = false;
-    private String interfaceLanguage = "en-US";
+    private String interfaceLanguage = supportedLanguages[0]; // en-US
     private boolean disclaimerShown = false;
     private boolean disclaimerDoNotShowAgain = false;
-    
-    /**
-     * The supported languages list - I don't know how or if this list
-     * can be automatically built based on the available bundles
-     * 
-     * @note en-US _MUST_ be the first element in the list
-     */
-    private final String[] supportedLanguages = new String[] {"en-US"};
     
     /**
      * Internal stuff
@@ -280,6 +280,15 @@ public class ServiceConfiguration {
      */
     public String[] getSupportedLanguages() {
         return supportedLanguages;
+    }
+    
+    /**
+     * Getter for the default application language (when needed for fallback)
+     * 
+     * @return 
+     */
+    public String getDefaultLanguage() {
+        return supportedLanguages[0];
     }
     
     /**
