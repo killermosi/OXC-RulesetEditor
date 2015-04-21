@@ -62,8 +62,10 @@ public class ServiceConfiguration {
     /**
      * The supported languages list - I don't know how or if this list
      * can be automatically built based on the available bundles
+     * 
+     * @note en-US _MUST_ be the first element in the list
      */
-    private final String[] supportedLanguages = new String[] {"en-US", "ro-RO"};
+    private final String[] supportedLanguages = new String[] {"en-US"};
     
     /**
      * Internal stuff
