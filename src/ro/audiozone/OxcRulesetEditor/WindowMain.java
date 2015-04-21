@@ -86,6 +86,19 @@ public class WindowMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        MainToolbar = new javax.swing.JToolBar();
+        MainBtnNew = new javax.swing.JButton();
+        MainBtnOpen = new javax.swing.JButton();
+        MainBtnSave = new javax.swing.JButton();
+        MainBtnSaveAs = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        MainBtnUndo = new javax.swing.JButton();
+        MainBtnRedo = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        MainBtnConfiguration = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        MainBtnAbout = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(lang.getString("Application.Title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -94,15 +107,93 @@ public class WindowMain extends javax.swing.JFrame {
             }
         });
 
+        MainToolbar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        MainToolbar.setFloatable(false);
+        MainToolbar.setRollover(true);
+
+        MainBtnNew.setBackground(new java.awt.Color(214, 210, 208));
+        MainBtnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-document-new-32.png"))); // NOI18N
+        MainBtnNew.setToolTipText(lang.getString("MainToolbar.BtnNew.tooltip"));
+        MainBtnNew.setEnabled(false);
+        MainBtnNew.setFocusable(false);
+        MainBtnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        MainBtnNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        MainToolbar.add(MainBtnNew);
+
+        MainBtnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-document-open-folder-32.png"))); // NOI18N
+        MainBtnOpen.setToolTipText(lang.getString("MainToolbar.BtnOpen.tooltip"));
+        MainBtnOpen.setEnabled(false);
+        MainBtnOpen.setFocusable(false);
+        MainBtnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        MainBtnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        MainToolbar.add(MainBtnOpen);
+
+        MainBtnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-document-save-32.png"))); // NOI18N
+        MainBtnSave.setToolTipText(lang.getString("MainToolbar.BtnSave.tooltip"));
+        MainBtnSave.setEnabled(false);
+        MainBtnSave.setFocusable(false);
+        MainBtnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        MainBtnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        MainToolbar.add(MainBtnSave);
+
+        MainBtnSaveAs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-document-save-as-32.png"))); // NOI18N
+        MainBtnSaveAs.setToolTipText(lang.getString("MainToolbar.BtnSaveAs.tooltip"));
+        MainBtnSaveAs.setEnabled(false);
+        MainBtnSaveAs.setFocusable(false);
+        MainBtnSaveAs.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        MainBtnSaveAs.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        MainToolbar.add(MainBtnSaveAs);
+        MainToolbar.add(jSeparator1);
+
+        MainBtnUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-edit-undo-32.png"))); // NOI18N
+        MainBtnUndo.setToolTipText(lang.getString("MainToolbar.BtnRedo.tooltip"));
+        MainBtnUndo.setEnabled(false);
+        MainBtnUndo.setFocusable(false);
+        MainBtnUndo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        MainBtnUndo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        MainToolbar.add(MainBtnUndo);
+
+        MainBtnRedo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-edit-redo.png"))); // NOI18N
+        MainBtnRedo.setToolTipText(lang.getString("MainToolbar.BtnRedo.tooltip"));
+        MainBtnRedo.setEnabled(false);
+        MainBtnRedo.setFocusable(false);
+        MainBtnRedo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        MainBtnRedo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        MainToolbar.add(MainBtnRedo);
+        MainToolbar.add(jSeparator2);
+
+        MainBtnConfiguration.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-configure-32.png"))); // NOI18N
+        MainBtnConfiguration.setToolTipText(lang.getString("MainToolbar.BtnConfiguration.tooltip"));
+        MainBtnConfiguration.setEnabled(false);
+        MainBtnConfiguration.setFocusable(false);
+        MainBtnConfiguration.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        MainBtnConfiguration.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        MainToolbar.add(MainBtnConfiguration);
+        MainToolbar.add(filler1);
+
+        MainBtnAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-help-about-32.png"))); // NOI18N
+        MainBtnAbout.setToolTipText(lang.getString("MainToolbar.BtnAbout.tooltip"));
+        MainBtnAbout.setFocusable(false);
+        MainBtnAbout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        MainBtnAbout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        MainBtnAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MainBtnAboutActionPerformed(evt);
+            }
+        });
+        MainToolbar.add(MainBtnAbout);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(MainToolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(MainToolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 254, Short.MAX_VALUE))
         );
 
         pack();
@@ -130,6 +221,12 @@ public class WindowMain extends javax.swing.JFrame {
             );
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void MainBtnAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainBtnAboutActionPerformed
+        DialogAbout dialog = new DialogAbout(this, true);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_MainBtnAboutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,5 +266,17 @@ public class WindowMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton MainBtnAbout;
+    private javax.swing.JButton MainBtnConfiguration;
+    private javax.swing.JButton MainBtnNew;
+    private javax.swing.JButton MainBtnOpen;
+    private javax.swing.JButton MainBtnRedo;
+    private javax.swing.JButton MainBtnSave;
+    private javax.swing.JButton MainBtnSaveAs;
+    private javax.swing.JButton MainBtnUndo;
+    private javax.swing.JToolBar MainToolbar;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     // End of variables declaration//GEN-END:variables
 }

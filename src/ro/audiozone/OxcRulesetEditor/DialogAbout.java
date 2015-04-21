@@ -57,7 +57,7 @@ public class DialogAbout extends DialogAbstract {
         CloseButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(lang.getString("Application.Title"));
+        setTitle(lang.getString("DialogAbout.Title"));
         setResizable(false);
 
         AboutPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
