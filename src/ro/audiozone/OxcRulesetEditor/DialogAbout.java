@@ -36,6 +36,7 @@ public class DialogAbout extends DialogAbstract {
         
         UrlLabelEmail.setURL(lang.getString("DialogAbout.UrlLabelEmail.link"));
         UrlLabelGithub.setURL(lang.getString("DialogAbout.UrlLabelGithub.link"));
+        //UrlLabelLicense.setURL(lang.getString("DialogAbout.UrlLabelLicense.link"));
     }
 
     /**
@@ -54,6 +55,8 @@ public class DialogAbout extends DialogAbstract {
         LabelEmail = new javax.swing.JLabel();
         LabelGithub = new javax.swing.JLabel();
         UrlLabelGithub = new ro.audiozone.OxcRulesetEditor.ComponentUrlLabel();
+        LabelLicense = new javax.swing.JLabel();
+        UrlLabelLicense = new ro.audiozone.OxcRulesetEditor.ComponentUrlLabel();
         IconLabel = new javax.swing.JLabel();
         CloseButton = new javax.swing.JButton();
 
@@ -80,6 +83,11 @@ public class DialogAbout extends DialogAbstract {
 
         UrlLabelGithub.setText(lang.getString("DialogAbout.UrlLabelGithub.text"));
 
+        LabelLicense.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        LabelLicense.setText(lang.getString("DialogAbout.LabelLicense.text"));
+
+        UrlLabelLicense.setText(lang.getString("DialogAbout.UrlLabelLicense.text"));
+
         javax.swing.GroupLayout AboutPanelLayout = new javax.swing.GroupLayout(AboutPanel);
         AboutPanel.setLayout(AboutPanelLayout);
         AboutPanelLayout.setHorizontalGroup(
@@ -92,11 +100,15 @@ public class DialogAbout extends DialogAbstract {
                     .addGroup(AboutPanelLayout.createSequentialGroup()
                         .addComponent(LabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UrlLabelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE))
+                        .addComponent(UrlLabelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))
                     .addGroup(AboutPanelLayout.createSequentialGroup()
                         .addComponent(LabelGithub, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UrlLabelGithub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(UrlLabelGithub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(AboutPanelLayout.createSequentialGroup()
+                        .addComponent(LabelLicense, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(UrlLabelLicense, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         AboutPanelLayout.setVerticalGroup(
@@ -114,7 +126,11 @@ public class DialogAbout extends DialogAbstract {
                 .addGroup(AboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelGithub)
                     .addComponent(UrlLabelGithub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(AboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelLicense)
+                    .addComponent(UrlLabelLicense, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         IconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/image-about-ace.png"))); // NOI18N
@@ -147,10 +163,10 @@ public class DialogAbout extends DialogAbstract {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(IconLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(IconLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(AboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(AboutPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(CloseButton)))
                 .addContainerGap())
         );
@@ -213,7 +229,9 @@ public class DialogAbout extends DialogAbstract {
     private javax.swing.JLabel IconLabel;
     private javax.swing.JLabel LabelEmail;
     private javax.swing.JLabel LabelGithub;
+    private javax.swing.JLabel LabelLicense;
     private ro.audiozone.OxcRulesetEditor.ComponentUrlLabel UrlLabelEmail;
     private ro.audiozone.OxcRulesetEditor.ComponentUrlLabel UrlLabelGithub;
+    private ro.audiozone.OxcRulesetEditor.ComponentUrlLabel UrlLabelLicense;
     // End of variables declaration//GEN-END:variables
 }
