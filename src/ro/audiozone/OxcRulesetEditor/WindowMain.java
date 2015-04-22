@@ -162,10 +162,14 @@ public class WindowMain extends javax.swing.JFrame {
 
         MainBtnConfiguration.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-configure-32.png"))); // NOI18N
         MainBtnConfiguration.setToolTipText(lang.getString("MainToolbar.BtnConfiguration.tooltip"));
-        MainBtnConfiguration.setEnabled(false);
         MainBtnConfiguration.setFocusable(false);
         MainBtnConfiguration.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         MainBtnConfiguration.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        MainBtnConfiguration.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MainBtnConfigurationActionPerformed(evt);
+            }
+        });
         MainToolbar.add(MainBtnConfiguration);
         MainToolbar.add(filler1);
 
@@ -225,6 +229,12 @@ public class WindowMain extends javax.swing.JFrame {
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_MainBtnAboutActionPerformed
+
+    private void MainBtnConfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainBtnConfigurationActionPerformed
+        DialogConfiguration dialog = new DialogConfiguration(this, true);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_MainBtnConfigurationActionPerformed
 
     /**
      * @param args the command line arguments
