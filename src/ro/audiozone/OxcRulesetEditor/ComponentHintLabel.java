@@ -16,9 +16,11 @@
  */
 package ro.audiozone.OxcRulesetEditor;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.RoundRectangle2D;
 import javax.swing.JLabel;
 
 /**
@@ -35,12 +37,18 @@ public class ComponentHintLabel extends JLabel {
     protected void paintComponent(Graphics g){
         // Create the 2D copy
         Graphics2D g2 = (Graphics2D)g.create();
-
+        Color originalColor = g2.getColor();
+        
         g2.setColor(Color.WHITE);
-        // Apply vertical gradient (optional)
-        //g2.setPaint(new GradientPaint(0, 0, Color.WHITE, 0, getHeight(), Color.BLUE));
-        g2.fillRect(0, 0, getWidth(), getHeight());
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 50);
+        g2.setPaint(Color.YELLOW);
+        g2.setPaint(new Color(244, 217, 65));
+        g2.setStroke(new BasicStroke(1.0f));
+        g2.draw(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 20, 50));
 
+        g2.setColor(originalColor);
+        super.paintComponent(g);
+        
         // Dipose of copy
         g2.dispose();
     }

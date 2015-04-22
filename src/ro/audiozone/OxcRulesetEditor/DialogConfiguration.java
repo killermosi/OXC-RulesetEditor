@@ -46,6 +46,7 @@ public class DialogConfiguration extends DialogAbstract {
         BtnCancel = new javax.swing.JButton();
         BtnOk = new javax.swing.JButton();
         GeneralPanel = new javax.swing.JPanel();
+        componentHintLabel1 = new ro.audiozone.OxcRulesetEditor.ComponentHintLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(lang.getString("DialogConfiguration.Title"));
@@ -67,17 +68,27 @@ public class DialogConfiguration extends DialogAbstract {
             }
         });
 
-        GeneralPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), lang.getString("DialogConfiguration.GeneralPanel.title")));
+        GeneralPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), lang.getString("DialogConfiguration.GeneralPanel.title")));
+
+        componentHintLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        componentHintLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-help-hint-16.png"))); // NOI18N
+        componentHintLabel1.setText("Language change will take effect on the next launch");
 
         javax.swing.GroupLayout GeneralPanelLayout = new javax.swing.GroupLayout(GeneralPanel);
         GeneralPanel.setLayout(GeneralPanelLayout);
         GeneralPanelLayout.setHorizontalGroup(
             GeneralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 414, Short.MAX_VALUE)
+            .addGroup(GeneralPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(componentHintLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         GeneralPanelLayout.setVerticalGroup(
             GeneralPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 206, Short.MAX_VALUE)
+            .addGroup(GeneralPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(componentHintLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -88,7 +99,7 @@ public class DialogConfiguration extends DialogAbstract {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 138, Short.MAX_VALUE)
                         .addComponent(BtnOk)
                         .addGap(18, 18, 18)
                         .addComponent(BtnCancel))
@@ -165,5 +176,6 @@ public class DialogConfiguration extends DialogAbstract {
     private javax.swing.JButton BtnCancel;
     private javax.swing.JButton BtnOk;
     private javax.swing.JPanel GeneralPanel;
+    private ro.audiozone.OxcRulesetEditor.ComponentHintLabel componentHintLabel1;
     // End of variables declaration//GEN-END:variables
 }
