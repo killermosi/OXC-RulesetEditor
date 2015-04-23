@@ -24,7 +24,37 @@ import java.awt.event.WindowEvent;
  * @author @author Silviu Ghita <killermosi@yahoo.com>
  */
 public class DialogConfiguration extends DialogAbstract {
-
+    /**
+     * Helper class for the language combo box
+     */
+    private class LanguageItem {
+        final private String languageCode;
+        final private String languageName;
+        
+        public LanguageItem(String code, String name) {
+            languageCode = code;
+            languageName = name;
+        }
+        
+        /**
+         * Override for "toString"
+         * 
+         * @return 
+         */
+        @Override
+        public String toString() {
+            return languageName;
+        }
+        
+        /**
+         * Getter for the language code
+         * 
+         * @return 
+         */
+        public String GetCode() {
+            return languageCode;
+        }
+    }
     /**
      * Creates new form DialogConfiguration
      * @param parent The parent component
@@ -33,6 +63,11 @@ public class DialogConfiguration extends DialogAbstract {
     public DialogConfiguration(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        initLanguageSelector();
+    }
+    
+    private void initLanguageSelector(){
+        
     }
 
     /**
