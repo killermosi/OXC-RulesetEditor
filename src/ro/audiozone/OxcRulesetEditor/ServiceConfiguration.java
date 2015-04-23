@@ -101,8 +101,8 @@ public class ServiceConfiguration {
      * Class initialization: read the configuration file and store the values
      */
     private ServiceConfiguration() {
-        // Calculate the ini file path - current directory where the application resides, not from where it is run
-        // (this means that the use should save the app somewhere on the disk where it has write access)
+        // Calculate the ini file path - the directory from where the application is is executed
+        // (this means that the user should run the app from somewhere on the disk where it has write access)
         iniFileLocation = System.getProperty("user.dir") + "/" + iniFileName;
 
         // Load the configuration from it
