@@ -20,6 +20,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JLabel;
 
@@ -36,15 +37,17 @@ public class ComponentHintLabel extends JLabel {
     @Override
     protected void paintComponent(Graphics g){
         // Create the 2D copy
-        Graphics2D g2 = (Graphics2D)g.create();
+        Graphics2D g2 = (Graphics2D) g.create();
         Color originalColor = g2.getColor();
         
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
         g2.setColor(Color.WHITE);
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 50);
-        g2.setPaint(Color.YELLOW);
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 12, 12);
+        
         g2.setPaint(new Color(244, 217, 65));
-        g2.setStroke(new BasicStroke(1.0f));
-        g2.draw(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 20, 50));
+        g2.setStroke(new BasicStroke(1.5f));
+        g2.draw(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 10, 10));
 
         g2.setColor(originalColor);
         super.paintComponent(g);
