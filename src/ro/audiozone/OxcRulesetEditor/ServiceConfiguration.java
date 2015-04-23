@@ -53,7 +53,7 @@ public class ServiceConfiguration {
      * 
      * @note en-US _MUST_ be the first element in the list
      */
-    private final String[] supportedLanguages = new String[] {"en-US"};
+    private final String[] supportedLanguages = new String[] {"en-US", "ro-RO"};
     
     /**
      * Various options
@@ -64,13 +64,22 @@ public class ServiceConfiguration {
     private int windowHeight = 600;
     private boolean windowMaximized = false;
     private String interfaceLanguage = supportedLanguages[0]; // en-US
+    private int interfaceUndoLevels = 50;
     private boolean disclaimerShown = false;
     private boolean disclaimerDoNotShowAgain = false;
+
+    /**
+     * Currently selected language - stores the language that was selected
+     * by the user in the configuration dialog to be applied on the next application start
+     */
+    private String selectedInterfaceLanguage = interfaceLanguage;
     
     /**
      * Internal stuff
      */
     private final int windowMinSize = 200;
+    private final int undoLevelsMin = 0;
+    private final int undoLevelsMax = 100;
     
     /**
      * Retrieve the configuration instance
@@ -148,7 +157,16 @@ public class ServiceConfiguration {
         if (!java.util.Arrays.asList(supportedLanguages).contains(interLanguage)) {
             interLanguage = interfaceLanguage;
         }
-        interfaceLanguage = interLanguage;
+        selectedInterfaceLanguage = interfaceLanguage = interLanguage;
+        
+        // - UndoLevels
+        interfaceUndoLevels = iniFile.ReadInteger("Interface", "UndoLevels", interfaceUndoLevels);
+        if (interfaceUndoLevels < undoLevelsMin) {
+            interfaceUndoLevels = undoLevelsMin;
+        }
+        if (interfaceUndoLevels > undoLevelsMax) {
+            interfaceUndoLevels = undoLevelsMax;
+        }
         
         // [Disclaimer]
         // - Shown
@@ -169,7 +187,8 @@ public class ServiceConfiguration {
         iniFile.WriteInteger("Window", "PositionX", windowPositionX);
         iniFile.WriteInteger("Window", "PositionY", windowPositionY);
         iniFile.WriteBool("Window", "Maximized", windowMaximized);
-        iniFile.WriteString("Interface", "Language", interfaceLanguage);
+        iniFile.WriteString("Interface", "Language", selectedInterfaceLanguage);
+        iniFile.WriteInteger("Interface", "UndoLevels", interfaceUndoLevels);
         iniFile.WriteBool("Disclaimer", "Shown", disclaimerShown);
         iniFile.WriteBool("Disclaimer", "DoNotShowAgain", disclaimerDoNotShowAgain);
         
@@ -255,12 +274,13 @@ public class ServiceConfiguration {
     }
     
     /**
-     * Setter for the interface language
+     * Setter for the interface language - this actually sets the "selectedInterfaceLanguage",
+     * as the language change is supposed to happen only on application startup
      * 
      * @param language The new language
      */
     public void setInterfaceLanguage(String language) {
-        interfaceLanguage = language;
+        selectedInterfaceLanguage = language;
     }
     
     /**
@@ -273,6 +293,15 @@ public class ServiceConfiguration {
     }
     
     /**
+     * Getter for the selected interface language
+     * 
+     * @return 
+     */
+    public String getSelectedInterfaceLanguage() {
+        return selectedInterfaceLanguage;
+    }
+    
+    /**
      * Getter for the (internal) list of supported languages (there is no setter for this item,
      * as it is hard-coded and not stored in the actual INI file).
      * 
@@ -280,6 +309,24 @@ public class ServiceConfiguration {
      */
     public String[] getSupportedLanguages() {
         return supportedLanguages;
+    }
+    
+    /**
+     * Getter for the undo levels
+     * 
+     * @return 
+     */
+    public int getUndoLevels() {
+        return interfaceUndoLevels;
+    }
+    
+    /**
+     * Setter for the undo levels
+     * 
+     * @param undoLevels The number of undo levels
+     */
+    public void setUndoLevels(int undoLevels) {
+        interfaceUndoLevels = undoLevels;
     }
     
     /**
@@ -326,5 +373,4 @@ public class ServiceConfiguration {
     public boolean isDisclaimerDoNotShowAgain() {
         return disclaimerDoNotShowAgain;
     }
-    
 }
