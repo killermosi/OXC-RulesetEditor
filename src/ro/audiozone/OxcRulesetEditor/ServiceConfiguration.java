@@ -274,16 +274,6 @@ public class ServiceConfiguration {
     }
     
     /**
-     * Setter for the interface language - this actually sets the "selectedInterfaceLanguage",
-     * as the language change is supposed to happen only on application startup
-     * 
-     * @param language The new language
-     */
-    public void setInterfaceLanguage(String language) {
-        selectedInterfaceLanguage = language;
-    }
-    
-    /**
      * Getter for the interface language
      * 
      * @return 
@@ -291,7 +281,17 @@ public class ServiceConfiguration {
     public String getInterfaceLanguage() {
         return interfaceLanguage;
     }
-    
+
+    /**
+     * Setter for the selected interface language - sets the "selectedInterfaceLanguage",
+     * as the language change is supposed to happen only on application startup
+     * 
+     * @param language The new language
+     */
+    public void setSelectedInterfaceLanguage(String language) {
+        selectedInterfaceLanguage = language;
+    }
+
     /**
      * Getter for the selected interface language
      * 

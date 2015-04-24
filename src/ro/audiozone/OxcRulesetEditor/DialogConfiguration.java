@@ -66,8 +66,30 @@ public class DialogConfiguration extends DialogAbstract {
         initLanguageSelector();
     }
     
+    /**
+     * Populate the language combo box
+     */
     private void initLanguageSelector(){
+        int selectedIndex = 0;
         
+        // Start with a clean slate
+        LanguageComboBox.removeAllItems();
+        
+        final String[] supportedLaguages = config.getSupportedLanguages();
+        
+        // Add elements
+        for (int i=0; i< supportedLaguages.length; i++) {
+            String languageCode = supportedLaguages[i];
+            
+            LanguageItem languageItem = new LanguageItem(languageCode, lang.getString("DialogConfiguration.Language." + languageCode));
+            LanguageComboBox.addItem(languageItem);
+            
+            if (languageCode.equals(config.getSelectedInterfaceLanguage())) {
+                selectedIndex = i;
+            }
+        }
+        
+        LanguageComboBox.setSelectedIndex(selectedIndex);
     }
 
     /**
@@ -151,6 +173,7 @@ public class DialogConfiguration extends DialogAbstract {
 
         HintLabelLanguage.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         HintLabelLanguage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-help-hint-16.png"))); // NOI18N
+        HintLabelLanguage.setToolTipText(lang.getString("DialogConfiguration.HintLabelLanguage.tooltip"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -160,7 +183,7 @@ public class DialogConfiguration extends DialogAbstract {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 31, Short.MAX_VALUE)
+                        .addGap(0, 189, Short.MAX_VALUE)
                         .addComponent(HintLabelLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnOk)
