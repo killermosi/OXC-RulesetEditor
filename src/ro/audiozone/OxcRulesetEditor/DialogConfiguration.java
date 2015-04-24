@@ -51,7 +51,7 @@ public class DialogConfiguration extends DialogAbstract {
          * 
          * @return 
          */
-        public String GetCode() {
+        public String getCode() {
             return languageCode;
         }
     }
@@ -136,11 +136,17 @@ public class DialogConfiguration extends DialogAbstract {
         LabelLanguage.setText(lang.getString("DialogConfiguration.LabelLanguage.text"));
 
         LanguageComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Language Selection" }));
+        LanguageComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LanguageComboBoxActionPerformed(evt);
+            }
+        });
 
         LabelUndo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         LabelUndo.setText(lang.getString("DialogConfiguration.LabelUndo.text"));
 
         UndoLevelsSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 5));
+        UndoLevelsSpinner.setValue(config.getUndoLevels());
 
         javax.swing.GroupLayout GeneralPanelLayout = new javax.swing.GroupLayout(GeneralPanel);
         GeneralPanel.setLayout(GeneralPanelLayout);
@@ -208,13 +214,47 @@ public class DialogConfiguration extends DialogAbstract {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * "OK" button action
+     * 
+     * @param evt The event
+     */
     private void BtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnOkActionPerformed
+        // Save the configuration
+        config.setSelectedInterfaceLanguage(((LanguageItem) LanguageComboBox.getSelectedItem()).getCode());
+        config.setUndoLevels((int) UndoLevelsSpinner.getValue());
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_BtnOkActionPerformed
 
+    /**
+     * "Cancel" button action
+     * 
+     * @param evt The event
+     */
     private void BtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelActionPerformed
+        // Just close the window
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_BtnCancelActionPerformed
+
+    /**
+     * Language combo box selection change
+     * 
+     * @param evt The event
+     */
+    private void LanguageComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LanguageComboBoxActionPerformed
+        // Show the language change hint (if necessary) when the langage selection
+        // Note: this event listener is added before the acual population of the combo box, so
+        // it will (conveniently) set the tip visible when the dialog is opened too
+        
+        // Don't try to set the tip if there is nothing selected (the combo box is empty)
+        if (null == LanguageComboBox.getSelectedItem()) {
+            return;
+        }
+        
+        HintLabelLanguage.setVisible(
+                !config.getInterfaceLanguage().equals(((LanguageItem) LanguageComboBox.getSelectedItem()).getCode())
+        );
+    }//GEN-LAST:event_LanguageComboBoxActionPerformed
 
     /**
      * @param args the command line arguments

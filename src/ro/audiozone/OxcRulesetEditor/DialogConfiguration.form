@@ -156,6 +156,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LanguageComboBoxActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="LabelUndo">
           <Properties>
@@ -169,6 +172,9 @@
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="5" type="number"/>
+            </Property>
+            <Property name="value" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="config.getUndoLevels()" type="code"/>
             </Property>
           </Properties>
         </Component>

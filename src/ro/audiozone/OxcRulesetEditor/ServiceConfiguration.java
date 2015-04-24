@@ -33,27 +33,27 @@ public class ServiceConfiguration {
     private static ServiceConfiguration instance;
     
     /**
-     * Ini file handler
+     * INI file handler
      */
     private final ServiceIniFile iniFile;
     
     /**
-     * The ini file name
+     * The INI file name
      */
     private final String iniFileName = "config.ini";
     
     /**
-     * The location from which the file is read (null if the file does not exist)
+     * The location from which the file is read
      */
-    private String iniFileLocation = null;
+    private String iniFileLocation;
 
     /**
      * The supported languages list - I don't know how or if this list
      * can be automatically built based on the available bundles
      * 
-     * @note en-US _MUST_ be the first element in the list
+     * <b>Note</b>: en-US _MUST_ be the first element in the list
      */
-    private final String[] supportedLanguages = new String[] {"en-US", "ro-RO"};
+    private final String[] supportedLanguages = new String[] {"en-US"};
     
     /**
      * Various options
@@ -116,7 +116,7 @@ public class ServiceConfiguration {
      * Initialize the internal configuration with values from the file and calculate the defaults
      */
     private void initConfiguration() {
-        /* For 100% completion, we'll run some checks on the values that were read from the ini file */
+        /* To be 100% sure, we'll run some checks on the values that were read from the ini file */
         
         // Meta: determine the (virtual) screen resolution of the display to be able to place the window dead center
         // if the position values were not found in the ini file. The window may end up being split between two monitors
@@ -327,6 +327,15 @@ public class ServiceConfiguration {
      */
     public void setUndoLevels(int undoLevels) {
         interfaceUndoLevels = undoLevels;
+        
+        // Just in case...
+        if (interfaceUndoLevels < undoLevelsMin) {
+            interfaceUndoLevels = undoLevelsMin;
+        }
+        
+        if (interfaceUndoLevels > undoLevelsMax) {
+            interfaceUndoLevels = undoLevelsMax;
+        }
     }
     
     /**
