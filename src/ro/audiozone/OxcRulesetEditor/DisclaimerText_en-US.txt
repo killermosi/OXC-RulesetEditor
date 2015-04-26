@@ -1,8 +1,9 @@
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ 
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
 ===================================
 USE THIS SOFTWARE AT YOUR OWN RISK!
 ===================================
 
-This is a Work-In-Progress application. There are a lot of things that won't work, will break,
-or might even not work and break at the same time.
-
-While care has been used when writing the application, the author cannot guarantee under any circumstances that this application won't break anything on the system used, won't cause any kind of data loss or that will even do what it's supposed to do!
+This is a Work-In-Progress application. There are a lot of things that won't work, will break, or might even not work and break at the same time.
