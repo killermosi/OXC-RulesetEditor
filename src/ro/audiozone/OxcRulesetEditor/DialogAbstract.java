@@ -31,6 +31,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileView;
 import java.io.File;
+import java.io.FilenameFilter;
 
 /**
  * Provides basic amenities for dialogs
@@ -100,11 +101,11 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
         chooser.setFileView(new FileView() {
             @Override
             public Icon getIcon(File file) {
-                String extension = "";
-                String fileName = file.getName();
-                if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0) {
-                    extension = fileName.substring(fileName.lastIndexOf(".")+1);
+                if (file.isDirectory()) {
+                    return getIconForDirectory(file);
                 }
+                
+                String extension = Utils.getExtension(file);
                 
                 if (extension.equals("")) {
                     return null;
@@ -115,6 +116,36 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
                 }
                 
                 return new ImageIcon(getClass().getResource(imagesStorage + "icon-openxcom-16.png"));
+            }
+            
+            /**
+             * Set a custom folder icon for folders containing rulesets
+             * 
+             * @param file The folder to look into
+             * @return 
+             */
+            private Icon getIconForDirectory(File folder) {
+                for (File fileEntry : folder.listFiles()) {
+                    // Ignore directories
+                    if (fileEntry.isDirectory()) {
+                        continue;
+                    }
+                    
+                    // Ignore hidden files
+                    if (fileEntry.getName().startsWith(".")) {
+                        continue;
+                    }
+
+                    System.out.println(fileEntry.getAbsolutePath());
+                    
+                    String extension = Utils.getExtension(folder);
+                    //System.out.println(extension);
+                    //if (Utils.getExtension(folder).equals(ServiceConfiguration.DEFAULT_RULESET_EXTENSION)) {
+                        //return new ImageIcon(getClass().getResource(imagesStorage + "icon-oxygen-openxcom-inode-directory-16.png"));
+                    //}
+                }
+                // "Default" icon
+                return new ImageIcon(getClass().getResource(imagesStorage + "icon-oxygen-inode-directory-16.png"));
             }
         });
         
