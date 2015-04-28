@@ -28,6 +28,10 @@ import java.awt.Toolkit;
  */
 public class ServiceConfiguration {
     /**
+     * The default ruleset extension
+     */
+    public final static String DEFAULT_RULESET_EXTENSION = "rul";
+    /**
      * Singleton instance
      */
     private static ServiceConfiguration instance;
@@ -45,7 +49,7 @@ public class ServiceConfiguration {
     /**
      * The location from which the file is read
      */
-    private String iniFileLocation;
+    private final String iniFileLocation;
 
     /**
      * The supported languages list - I don't know how or if this list

@@ -23,9 +23,14 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileView;
+import java.io.File;
 
 /**
  * Provides basic amenities for dialogs
@@ -89,13 +94,52 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
         /* Internationalize the thing */
         
         /* Use the OXC icon for .rul files */
+        chooser.setFileView(new FileView() {
+            @Override
+            public Icon getIcon(File file) {
+                String extension = "";
+                String fileName = file.getName();
+                if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0) {
+                    extension = fileName.substring(fileName.lastIndexOf(".")+1);
+                }
+                
+                if (extension.equals("")) {
+                    return null;
+                }
+                
+                if (!extension.equals(ServiceConfiguration.DEFAULT_RULESET_EXTENSION)) {
+                    return super.getIcon(file);
+                }
+                
+                return new ImageIcon(getClass().getResource(imagesStorage + "icon-openxcom-16.png"));
+            }
+        });
         
         /* Set the file filter to .run & all files */
+        String rulesetName = lang.getString("FileChooser.RulesetFileName");
+        FileFilter filter = new FileNameExtensionFilter(
+                String.format(rulesetName, "." + ServiceConfiguration.DEFAULT_RULESET_EXTENSION),
+                ServiceConfiguration.DEFAULT_RULESET_EXTENSION
+        );
+        chooser.addChoosableFileFilter(filter);
+        chooser.setFileFilter(filter);
         
         /* Remove the "New Folder button from the chooser */
         if (removeNFB) {
             removeNewFolderButton(chooser);
         }
+    }
+    
+    /**
+     * Customize a file chooser with the following:
+     * - internationalize the file chooser
+     * - set a special icon for .rul files
+     * - set the file filter
+     * 
+     * @param chooser The jFileChooser to customize
+     */
+    protected void customizeFileChooser(JFileChooser chooser) {
+        customizeFileChooser(chooser, false);
     }
     
     /**
@@ -123,17 +167,5 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
                 removeNewFolderButton((Container) comp);
             }
         }
-    }
-    
-    /**
-     * Customize a file chooser with the following:
-     * - internationalize the file chooser
-     * - set a special icon for .rul files
-     * - set the file filter
-     * 
-     * @param chooser The jFileChooser to customize
-     */
-    protected void customizeFileChooser(JFileChooser chooser) {
-        customizeFileChooser(chooser, false);
     }
 }
