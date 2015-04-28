@@ -16,6 +16,8 @@
  */
 package ro.audiozone.OxcRulesetEditor;
 
+import java.awt.event.WindowEvent;
+
 /**
  * Handles opening rulesets (single or split)
  * 
@@ -42,28 +44,85 @@ public class DialogRulesetOpen extends DialogAbstract {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        RulesetTypeGroup = new javax.swing.ButtonGroup();
         FileChooser = new javax.swing.JFileChooser();
+        BtnCancel = new javax.swing.JButton();
+        btnOpen = new javax.swing.JButton();
+        Separator = new javax.swing.JSeparator();
+        SingleRulesetFileToggleButton = new javax.swing.JToggleButton();
+        SplitRulesetFileToggleButton = new javax.swing.JToggleButton();
+        LabelRulesetType = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(lang.getString("DialogOpenRuleset.Title"));
-        setMinimumSize(new java.awt.Dimension(500, 300));
-        setPreferredSize(new java.awt.Dimension(520, 360));
+        setMinimumSize(new java.awt.Dimension(500, 400));
+        setPreferredSize(new java.awt.Dimension(500, 400));
 
         FileChooser.setControlButtonsAreShown(false);
+
+        BtnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-dialog-cancel-32.png"))); // NOI18N
+        BtnCancel.setText(lang.getString("DialogOpenRuleset.BtnCancel.Text"));
+        BtnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCancelActionPerformed(evt);
+            }
+        });
+
+        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-dialog-ok-32.png"))); // NOI18N
+        btnOpen.setText(lang.getString("DialogOpenRuleset.BtnOpen.Text"));
+
+        RulesetTypeGroup.add(SingleRulesetFileToggleButton);
+        SingleRulesetFileToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-view-list-text-32.png"))); // NOI18N
+        SingleRulesetFileToggleButton.setSelected(true);
+        SingleRulesetFileToggleButton.setToolTipText(lang.getString("DialogOpenRuleset.SingleRulesetFileToggleButton.tooltip"));
+
+        RulesetTypeGroup.add(SplitRulesetFileToggleButton);
+        SplitRulesetFileToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-view-list-tree-32.png"))); // NOI18N
+        SplitRulesetFileToggleButton.setToolTipText(lang.getString("DialogOpenRuleset.SplitRulesetFileToggleButton.tooltip"));
+
+        LabelRulesetType.setText(lang.getString("DialogOpenRuleset.LabelRulesetType.Text"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+            .addComponent(FileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LabelRulesetType)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SingleRulesetFileToggleButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SplitRulesetFileToggleButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(btnOpen)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BtnCancel)
+                .addContainerGap())
+            .addComponent(Separator, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(FileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Separator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SingleRulesetFileToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SplitRulesetFileToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(BtnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnOpen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LabelRulesetType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelActionPerformed
+        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }//GEN-LAST:event_BtnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -110,6 +169,13 @@ public class DialogRulesetOpen extends DialogAbstract {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCancel;
     private javax.swing.JFileChooser FileChooser;
+    private javax.swing.JLabel LabelRulesetType;
+    private javax.swing.ButtonGroup RulesetTypeGroup;
+    private javax.swing.JSeparator Separator;
+    private javax.swing.JToggleButton SingleRulesetFileToggleButton;
+    private javax.swing.JToggleButton SplitRulesetFileToggleButton;
+    private javax.swing.JButton btnOpen;
     // End of variables declaration//GEN-END:variables
 }
