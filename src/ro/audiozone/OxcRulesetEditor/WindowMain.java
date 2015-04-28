@@ -120,10 +120,14 @@ public class WindowMain extends javax.swing.JFrame {
 
         MainBtnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-document-open-folder-32.png"))); // NOI18N
         MainBtnOpen.setToolTipText(lang.getString("MainToolbar.BtnOpen.tooltip"));
-        MainBtnOpen.setEnabled(false);
         MainBtnOpen.setFocusable(false);
         MainBtnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         MainBtnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        MainBtnOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MainBtnOpenActionPerformed(evt);
+            }
+        });
         MainToolbar.add(MainBtnOpen);
 
         MainBtnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-document-save-32.png"))); // NOI18N
@@ -235,6 +239,12 @@ public class WindowMain extends javax.swing.JFrame {
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_MainBtnConfigurationActionPerformed
+
+    private void MainBtnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainBtnOpenActionPerformed
+        DialogRulesetOpen dialog = new DialogRulesetOpen(this, true);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_MainBtnOpenActionPerformed
 
     /**
      * @param args the command line arguments
