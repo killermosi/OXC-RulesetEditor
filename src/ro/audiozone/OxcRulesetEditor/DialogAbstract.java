@@ -51,6 +51,11 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
     );
     
     /**
+     * Static marker for the localization of the file chooser
+     */
+    private static boolean fileChooserLocalized = false;
+    
+    /**
      * Where various images can be found
      */
     final protected String imagesStorage = "/ro/audiozone/OxcRulesetEditor/Images/";
@@ -64,6 +69,7 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
     public DialogAbstract(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         setWindowIcons();
+        localizeFileChoosers();
     }
     
     /**
@@ -82,7 +88,6 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
     
     /**
      * Customize a file chooser with the following:
-     * - internationalize the file chooser
      * - set a special icon for .rul files
      * - set the file filter
      * - (optional) remove the "New Folder" button - useful for "Open Ruleset scenario"
@@ -91,8 +96,6 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
      * @param removeNFB If to remove the New Folder button from the interface
      */
     protected void customizeFileChooser(JFileChooser chooser, boolean removeNFB) {
-        /* Internationalize the thing */
-        
         /* Use the OXC icon for .rul files */
         chooser.setFileView(new FileView() {
             @Override
@@ -132,7 +135,6 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
     
     /**
      * Customize a file chooser with the following:
-     * - internationalize the file chooser
      * - set a special icon for .rul files
      * - set the file filter
      * 
@@ -167,5 +169,53 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
                 removeNewFolderButton((Container) comp);
             }
         }
+    }
+    
+    /**
+     * Localize the file choosers (sadly, all of them)
+     */
+    private void localizeFileChoosers() {
+        if (fileChooserLocalized) {
+            return;
+        }
+
+        String[] labels = {
+            "FileChooser.acceptAllFileFilterText",
+            "FileChooser.detailsViewButtonAccessibleName",
+            "FileChooser.detailsViewButtonToolTipText",
+            "FileChooser.directoryDescriptionText",
+            "FileChooser.fileDescriptionText",
+            "FileChooser.fileNameLabelText",
+            "FileChooser.filesOfTypeLabelText",
+            "FileChooser.helpButtonText",
+            "FileChooser.helpButtonToolTipText",
+            "FileChooser.homeFolderAccessibleName",
+            "FileChooser.homeFolderToolTipText",
+            "FileChooser.listViewButtonAccessibleName",
+            "FileChooser.listViewButtonToolTipText",
+            "FileChooser.lookInLabelText",
+            "FileChooser.newFolderAccessibleName",
+            "FileChooser.newFolderErrorSeparator",
+            "FileChooser.newFolderErrorText",
+            "FileChooser.newFolderToolTipText",
+            "FileChooser.other.newFolder",
+            "FileChooser.other.newFolder.subsequent",
+            "FileChooser.upFolderAccessibleName",
+            "FileChooser.upFolderToolTipText",
+            "FileChooser.updateButtonText",
+            "FileChooser.updateButtonToolTipText",
+            "FileChooser.win32.newFolder",
+            "FileChooser.win32.newFolder.subsequent"
+        };
+        
+        for (String label:labels) {
+            try {
+                UIManager.put(label, lang.getString(label));
+            } catch(Exception exc) {
+                System.out.println("Minor: label '" + label + "' not found in the current i18n bundle");
+            }
+        }
+        
+        fileChooserLocalized = true;
     }
 }
