@@ -17,6 +17,8 @@
 package ro.audiozone.OxcRulesetEditor;
 
 import java.awt.Toolkit;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Handles configuration data and defaults
@@ -79,6 +81,11 @@ public class ServiceConfiguration {
     private String selectedInterfaceLanguage = interfaceLanguage;
     
     /**
+     * Session data that is discarded when the application closes
+     */
+    private Map<String, Object> sessionData;
+    
+    /**
      * Internal stuff
      */
     private final int windowMinSize = 200;
@@ -114,6 +121,9 @@ public class ServiceConfiguration {
         
         // And init the configuration
         initConfiguration();
+        
+        // Also init the session store
+        sessionData = new HashMap<>();
     }
     
     /**
@@ -385,5 +395,25 @@ public class ServiceConfiguration {
      */
     public boolean isDisclaimerDoNotShowAgain() {
         return disclaimerDoNotShowAgain;
+    }
+    
+    /**
+     * Setter for the session data
+     * 
+     * @param key The data key
+     * @param value The data value
+     */
+    public void setSessionData(String key, Object value) {
+        sessionData.put(key, value);
+    }
+    
+    /**
+     * Getter for the session data
+     * 
+     * @param key The key to retrieve
+     * @return 
+     */
+    public Object getSessionData(String key) {
+        return sessionData.containsKey(key) ? sessionData.get(key) : null;
     }
 }

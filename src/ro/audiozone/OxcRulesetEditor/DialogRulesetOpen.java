@@ -16,6 +16,7 @@
  */
 package ro.audiozone.OxcRulesetEditor;
 
+import java.awt.Component;
 import java.awt.event.WindowEvent;
 
 /**
@@ -34,6 +35,22 @@ public class DialogRulesetOpen extends DialogAbstract {
         super(parent, modal);
         initComponents();
         customizeFileChooser(FileChooser, true);
+    }
+    
+    @Override
+    public void setLocationRelativeTo(Component c){
+        // Restore position and size if found in the session
+        int[] session = (int[]) config.getSessionData("DialogRulesetOpen.PositionAndSize");
+        
+        // Nothing in the seesion? Run the parent routine
+        if (null == session) {
+            super.setLocationRelativeTo(c);
+            return;
+        }
+        
+        // I know, I know, magic numbers...
+        setLocation(session[0], session[1]);
+        setSize(session[2], session[3]);
     }
 
     /**
@@ -56,6 +73,11 @@ public class DialogRulesetOpen extends DialogAbstract {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(lang.getString("DialogOpenRuleset.Title"));
         setMinimumSize(new java.awt.Dimension(650, 400));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         FileChooser.setControlButtonsAreShown(false);
 
@@ -122,6 +144,12 @@ public class DialogRulesetOpen extends DialogAbstract {
     private void BtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelActionPerformed
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_BtnCancelActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // Save the position and size of the dialog in the session for a better UX
+        int[] positionAndSize = {getX(), getY(), getWidth(), getHeight()};
+        config.setSessionData("DialogRulesetOpen.PositionAndSize", positionAndSize);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
