@@ -31,7 +31,6 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileView;
 import java.io.File;
-import java.io.FilenameFilter;
 
 /**
  * Provides basic amenities for dialogs
@@ -98,56 +97,7 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
      */
     protected void customizeFileChooser(JFileChooser chooser, boolean removeNFB) {
         /* Use the OXC icon for .rul files */
-        chooser.setFileView(new FileView() {
-            @Override
-            public Icon getIcon(File file) {
-                if (file.isDirectory()) {
-                    return getIconForDirectory(file);
-                }
-                
-                String extension = Utils.getExtension(file);
-                
-                if (extension.equals("")) {
-                    return null;
-                }
-                
-                if (!extension.equals(ServiceConfiguration.DEFAULT_RULESET_EXTENSION)) {
-                    return super.getIcon(file);
-                }
-                
-                return new ImageIcon(getClass().getResource(imagesStorage + "icon-openxcom-16.png"));
-            }
-            
-            /**
-             * Set a custom folder icon for folders containing rulesets
-             * 
-             * @param file The folder to look into
-             * @return 
-             */
-            private Icon getIconForDirectory(File folder) {
-                for (File fileEntry : folder.listFiles()) {
-                    // Ignore directories
-                    if (fileEntry.isDirectory()) {
-                        continue;
-                    }
-                    
-                    // Ignore hidden files
-                    if (fileEntry.getName().startsWith(".")) {
-                        continue;
-                    }
-
-                    System.out.println(fileEntry.getAbsolutePath());
-                    
-                    String extension = Utils.getExtension(folder);
-                    //System.out.println(extension);
-                    //if (Utils.getExtension(folder).equals(ServiceConfiguration.DEFAULT_RULESET_EXTENSION)) {
-                        //return new ImageIcon(getClass().getResource(imagesStorage + "icon-oxygen-openxcom-inode-directory-16.png"));
-                    //}
-                }
-                // "Default" icon
-                return new ImageIcon(getClass().getResource(imagesStorage + "icon-oxygen-inode-directory-16.png"));
-            }
-        });
+        chooser.setFileView(new MiscFileView());
         
         /* Set the file filter to .run & all files */
         String rulesetName = lang.getString("FileChooser.RulesetFileName");
