@@ -36,7 +36,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="FileChooser" alignment="0" max="32767" attributes="0"/>
+          <Component id="FileChooserOpen" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="LabelRulesetType" min="-2" max="-2" attributes="0"/>
@@ -56,7 +56,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="FileChooser" pref="336" max="32767" attributes="0"/>
+              <Component id="FileChooserOpen" pref="336" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="Separator" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -74,7 +74,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JFileChooser" name="FileChooser">
+    <Component class="javax.swing.JFileChooser" name="FileChooserOpen">
       <Properties>
         <Property name="controlButtonsAreShown" type="boolean" value="false"/>
       </Properties>
@@ -130,6 +130,9 @@
           <Connection code="lang.getString(&quot;DialogOpenRuleset.SplitRulesetFileToggleButton.tooltip&quot;)" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="SplitRulesetFileToggleButtonItemStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="LabelRulesetType">
       <Properties>

@@ -73,6 +73,8 @@ public class ServiceConfiguration {
     private int interfaceUndoLevels = 50;
     private boolean disclaimerShown = false;
     private boolean disclaimerDoNotShowAgain = false;
+    private String filesLastOpenDirectory = System.getProperty("user.home");
+    private boolean filesLastOpenSplitRule = false;
 
     /**
      * Currently selected language - stores the language that was selected
@@ -81,9 +83,11 @@ public class ServiceConfiguration {
     private String selectedInterfaceLanguage = interfaceLanguage;
     
     /**
-     * Session data that is discarded when the application closes
+     * Session data that is discarded when the application closes.
+     * 
+     * This data (although global) is intended to be used for small-area operations inside one class
      */
-    private Map<String, Object> sessionData;
+    private final Map<String, Object> sessionData;
     
     /**
      * Internal stuff
@@ -187,6 +191,12 @@ public class ServiceConfiguration {
         disclaimerShown = iniFile.ReadBool("Disclaimer", "Shown", disclaimerShown);
         // - DoNotShowAgain
         disclaimerDoNotShowAgain = iniFile.ReadBool("Disclaimer", "DoNotShowAgain", disclaimerDoNotShowAgain);
+        
+        // [Files]
+        // - LastOpenDirectory
+        filesLastOpenDirectory = iniFile.ReadString("Files", "LastOpenDirectory", filesLastOpenDirectory);
+        // - LastOpenSplitRule
+        filesLastOpenSplitRule = iniFile.ReadBool("Files", "LastOpenSplitRule", filesLastOpenSplitRule);
     }
     
     /**
@@ -205,9 +215,31 @@ public class ServiceConfiguration {
         iniFile.WriteInteger("Interface", "UndoLevels", interfaceUndoLevels);
         iniFile.WriteBool("Disclaimer", "Shown", disclaimerShown);
         iniFile.WriteBool("Disclaimer", "DoNotShowAgain", disclaimerDoNotShowAgain);
+        iniFile.WriteString("Files", "LastOpenDirectory", filesLastOpenDirectory);
+        iniFile.WriteBool("Files", "LastOpenSplitRule", filesLastOpenSplitRule);
         
         // And write it
         return iniFile.UpdateFile();
+    }
+    
+    /**
+     * Setter for the session data
+     * 
+     * @param key The data key
+     * @param value The data value
+     */
+    public void setSessionData(String key, Object value) {
+        sessionData.put(key, value);
+    }
+    
+    /**
+     * Getter for the session data
+     * 
+     * @param key The key to retrieve
+     * @return 
+     */
+    public Object getSessionData(String key) {
+        return sessionData.containsKey(key) ? sessionData.get(key) : null;
     }
     
     /**
@@ -398,22 +430,38 @@ public class ServiceConfiguration {
     }
     
     /**
-     * Setter for the session data
+     * Getter for the last opened directory
      * 
-     * @param key The data key
-     * @param value The data value
+     * @return 
      */
-    public void setSessionData(String key, Object value) {
-        sessionData.put(key, value);
+    public String getFilesLastOpenDirectory() {
+        return filesLastOpenDirectory;
     }
     
     /**
-     * Getter for the session data
+     * Setter for the last opened directory
      * 
-     * @param key The key to retrieve
+     * @param directory The last open directory
+     */
+    public void setFilesLastOpenDirectory(String directory) {
+        filesLastOpenDirectory = directory;
+    }
+    
+    /**
+     * If the last opened rule was a split one
+     * 
      * @return 
      */
-    public Object getSessionData(String key) {
-        return sessionData.containsKey(key) ? sessionData.get(key) : null;
+    public boolean isFilesLastOpenSplitRule() {
+        return filesLastOpenSplitRule;
+    }
+    
+    /**
+     * Setter for the last opened rule state
+     * 
+     * @param splitRule If the rule was split or not
+     */
+    public void setFilesLastOpenSplitRule(boolean splitRule) {
+        filesLastOpenSplitRule = splitRule;
     }
 }
