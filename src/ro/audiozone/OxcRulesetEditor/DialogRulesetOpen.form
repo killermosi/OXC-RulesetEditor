@@ -45,7 +45,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="SplitRulesetFileToggleButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="210" max="32767" attributes="0"/>
-              <Component id="btnOpen" min="-2" max="-2" attributes="0"/>
+              <Component id="BtnOpen" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="BtnCancel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -65,7 +65,7 @@
                   <Component id="SplitRulesetFileToggleButton" alignment="0" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="BtnCancel" alignment="3" max="32767" attributes="0"/>
-                      <Component id="btnOpen" alignment="3" max="32767" attributes="0"/>
+                      <Component id="BtnOpen" alignment="3" max="32767" attributes="0"/>
                       <Component id="LabelRulesetType" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -92,7 +92,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnCancelActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnOpen">
+    <Component class="javax.swing.JButton" name="BtnOpen">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-dialog-ok-32.png"/>

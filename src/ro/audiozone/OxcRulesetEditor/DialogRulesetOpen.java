@@ -64,7 +64,7 @@ public class DialogRulesetOpen extends DialogAbstract {
         RulesetTypeGroup = new javax.swing.ButtonGroup();
         FileChooser = new javax.swing.JFileChooser();
         BtnCancel = new javax.swing.JButton();
-        btnOpen = new javax.swing.JButton();
+        BtnOpen = new javax.swing.JButton();
         Separator = new javax.swing.JSeparator();
         SingleRulesetFileToggleButton = new javax.swing.JToggleButton();
         SplitRulesetFileToggleButton = new javax.swing.JToggleButton();
@@ -89,8 +89,8 @@ public class DialogRulesetOpen extends DialogAbstract {
             }
         });
 
-        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-dialog-ok-32.png"))); // NOI18N
-        btnOpen.setText(lang.getString("DialogOpenRuleset.BtnOpen.Text"));
+        BtnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-dialog-ok-32.png"))); // NOI18N
+        BtnOpen.setText(lang.getString("DialogOpenRuleset.BtnOpen.Text"));
 
         RulesetTypeGroup.add(SingleRulesetFileToggleButton);
         SingleRulesetFileToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-view-list-text-32.png"))); // NOI18N
@@ -116,7 +116,7 @@ public class DialogRulesetOpen extends DialogAbstract {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SplitRulesetFileToggleButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
-                .addComponent(btnOpen)
+                .addComponent(BtnOpen)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BtnCancel)
                 .addContainerGap())
@@ -134,7 +134,7 @@ public class DialogRulesetOpen extends DialogAbstract {
                     .addComponent(SplitRulesetFileToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(BtnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnOpen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BtnOpen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(LabelRulesetType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -197,12 +197,12 @@ public class DialogRulesetOpen extends DialogAbstract {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCancel;
+    private javax.swing.JButton BtnOpen;
     private javax.swing.JFileChooser FileChooser;
     private javax.swing.JLabel LabelRulesetType;
     private javax.swing.ButtonGroup RulesetTypeGroup;
     private javax.swing.JSeparator Separator;
     private javax.swing.JToggleButton SingleRulesetFileToggleButton;
     private javax.swing.JToggleButton SplitRulesetFileToggleButton;
-    private javax.swing.JButton btnOpen;
     // End of variables declaration//GEN-END:variables
 }
