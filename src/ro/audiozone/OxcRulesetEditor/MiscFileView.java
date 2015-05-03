@@ -33,15 +33,27 @@ public class MiscFileView extends FileView{
     final private String imagesStorage = "/ro/audiozone/OxcRulesetEditor/Images/";
     
     /**
+     * Marker for windows OS
+     */
+    final private boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("win");
+    
+    /**
      * Set a limit for the files scanned to determine if a certain directory contains
      * rulesets or not (should speed up directory scanning when there are a lot of files in them)
      */
-    final private int fileScanLimit = 15;
+    final private int fileScanLimit = 10;
+    
+    /**
+     * Class initialization
+     */
+    public MiscFileView() {
+        super();
+    }
     
     @Override
     public Icon getIcon(File file) {
         if (file.isDirectory()) {
-            return getIconForDirectory(file);
+            return null;// getIconForDirectory(file);
         }
 
         String extension = getExtension(file);
@@ -66,6 +78,11 @@ public class MiscFileView extends FileView{
     private Icon getIconForDirectory(File folder) {
         // If for some reason this is not a folder of sorts...
         if (null == folder) {
+            return null;
+        }
+        
+        // Check for root folders on Windows
+        if (isWindows && null == folder.getParentFile()) {
             return null;
         }
         

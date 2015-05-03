@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.plaf.basic.BasicFileChooserUI;
 
 /**
  * Main application window
@@ -38,7 +40,7 @@ public class WindowMain extends javax.swing.JFrame {
     /**
      * i18n support
      */
-    final protected java.util.ResourceBundle lang = java.util.ResourceBundle.getBundle(
+    final protected  java.util.ResourceBundle lang = java.util.ResourceBundle.getBundle(
                 "ro/audiozone/OxcRulesetEditor/i18n_" + config.getInterfaceLanguage()
     );
     
@@ -51,6 +53,9 @@ public class WindowMain extends javax.swing.JFrame {
      * Creates new form WidowMain
      */
     public WindowMain() {
+        // Do some customization
+        customizeUIManagerElements();
+        
         // Init main window
         initComponents();
 
@@ -281,6 +286,54 @@ public class WindowMain extends javax.swing.JFrame {
                 new WindowMain().setVisible(true);
             }
         });
+    }
+    
+    /**
+     * Customize some global UI Manager elements
+     */
+    private void customizeUIManagerElements() {
+        System.out.println(UIManager.getIcon("FileView.directoryIcon"));
+        
+        UIManager.put("FileView.directoryIcon", new ImageIcon(getClass().getResource(imagesStorage + "icon-oxygen-inode-directory-16.png")));
+        
+        System.out.println(UIManager.getIcon("FileView.directoryIcon"));
+        
+        String[] labels = {
+            "FileChooser.acceptAllFileFilterText",
+            "FileChooser.detailsViewButtonAccessibleName",
+            "FileChooser.detailsViewButtonToolTipText",
+            "FileChooser.directoryDescriptionText",
+            "FileChooser.fileDescriptionText",
+            "FileChooser.fileNameLabelText",
+            "FileChooser.filesOfTypeLabelText",
+            "FileChooser.helpButtonText",
+            "FileChooser.helpButtonToolTipText",
+            "FileChooser.homeFolderAccessibleName",
+            "FileChooser.homeFolderToolTipText",
+            "FileChooser.listViewButtonAccessibleName",
+            "FileChooser.listViewButtonToolTipText",
+            "FileChooser.lookInLabelText",
+            "FileChooser.newFolderAccessibleName",
+            "FileChooser.newFolderErrorSeparator",
+            "FileChooser.newFolderErrorText",
+            "FileChooser.newFolderToolTipText",
+            "FileChooser.other.newFolder",
+            "FileChooser.other.newFolder.subsequent",
+            "FileChooser.upFolderAccessibleName",
+            "FileChooser.upFolderToolTipText",
+            "FileChooser.updateButtonText",
+            "FileChooser.updateButtonToolTipText",
+            "FileChooser.win32.newFolder",
+            "FileChooser.win32.newFolder.subsequent"
+        };
+        
+        for (String label:labels) {
+            try {
+                UIManager.put(label, lang.getString(label));
+            } catch(Exception exc) {
+                System.out.println("Minor: label '" + label + "' not found in the current i18n bundle");
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
