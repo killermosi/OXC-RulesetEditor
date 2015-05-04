@@ -19,6 +19,8 @@ package ro.audiozone.OxcRulesetEditor;
 import java.awt.Component;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  * Handles opening rulesets (single or split)
@@ -26,7 +28,7 @@ import java.io.File;
  * @author Silviu Ghita <killermosi@yahoo.com>
  */
 public class DialogRulesetOpen extends DialogAbstract {
-
+    
     /**
      * Creates new form DialogOpen
      * @param parent The parent
@@ -188,10 +190,18 @@ public class DialogRulesetOpen extends DialogAbstract {
     }//GEN-LAST:event_formWindowClosing
 
     private void SplitRulesetFileToggleButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SplitRulesetFileToggleButtonItemStateChanged
+        JComboBox fileTypeComboBox = getFileTypeComboBox();
+        
         if (SplitRulesetFileToggleButton.isSelected()) {
             FileChooserOpen.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
+            if (null != fileTypeComboBox) {
+                fileTypeComboBox.setEnabled(false);
+            }
         } else {
             FileChooserOpen.setFileSelectionMode(javax.swing.JFileChooser.FILES_ONLY);
+            if (null != fileTypeComboBox) {
+                fileTypeComboBox.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_SplitRulesetFileToggleButtonItemStateChanged
 
@@ -237,6 +247,35 @@ public class DialogRulesetOpen extends DialogAbstract {
                 dialog.setVisible(true);
             }
         });
+    }
+    
+    /**
+     * Browse through all the components of the FileChooser and try to pick up the
+     * "file type" combo box
+     * 
+     * @return 
+     */
+    private JComboBox getFileTypeComboBox() {
+        Component[] components = FileChooserOpen.getComponents();
+
+        // Pick the FileType ComboBox from the components
+        for (Component component : components) {
+            if (!(component instanceof JComboBox)) {
+                continue;
+            }
+            
+            ComboBoxModel model = ((JComboBox) component).getModel();
+            
+            int size = model.getSize();
+            System.out.println(size);
+            for (int i = 0; i < size; i++) {
+                if (model.getElementAt(i).toString().equals(lang.getString("FileChooser.acceptAllFileFilterText"))) {
+                    return (JComboBox) component;
+                }
+            }
+        }
+        
+        return null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
