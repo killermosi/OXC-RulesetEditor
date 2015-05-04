@@ -26,7 +26,7 @@ import javax.swing.filechooser.FileView;
  * 
  * @author Silviu Ghita <killermosi@yahoo.com>
  */
-public class MiscFileView extends FileView{
+public class ComponentFileView extends FileView{
     /**
      * Where various images can be found
      */
@@ -46,7 +46,7 @@ public class MiscFileView extends FileView{
     /**
      * Class initialization
      */
-    public MiscFileView() {
+    public ComponentFileView() {
         super();
     }
     

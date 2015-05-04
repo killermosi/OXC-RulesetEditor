@@ -88,7 +88,7 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
      */
     protected void customizeFileChooser(JFileChooser chooser, boolean removeNFB) {
         /* Use the OXC icon for .rul files */
-        chooser.setFileView(new MiscFileView());
+        chooser.setFileView(new ComponentFileView());
         
         /* Set the file filter to .rul & all files */
         String rulesetName = lang.getString("FileChooser.RulesetFileName");
