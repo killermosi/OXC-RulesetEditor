@@ -17,10 +17,12 @@
 package ro.audiozone.OxcRulesetEditor;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 
 /**
  * Handles opening rulesets (single or split)
@@ -190,18 +192,12 @@ public class DialogRulesetOpen extends DialogAbstract {
     }//GEN-LAST:event_formWindowClosing
 
     private void SplitRulesetFileToggleButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SplitRulesetFileToggleButtonItemStateChanged
-        JComboBox fileTypeComboBox = getFileTypeComboBox();
-        
         if (SplitRulesetFileToggleButton.isSelected()) {
             FileChooserOpen.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-            if (null != fileTypeComboBox) {
-                fileTypeComboBox.setEnabled(false);
-            }
+            setFyleTypeComboBoxEnabled(FileChooserOpen, false);
         } else {
             FileChooserOpen.setFileSelectionMode(javax.swing.JFileChooser.FILES_ONLY);
-            if (null != fileTypeComboBox) {
-                fileTypeComboBox.setEnabled(true);
-            }
+            setFyleTypeComboBoxEnabled(FileChooserOpen, true);
         }
     }//GEN-LAST:event_SplitRulesetFileToggleButtonItemStateChanged
 
@@ -250,32 +246,29 @@ public class DialogRulesetOpen extends DialogAbstract {
     }
     
     /**
-     * Browse through all the components of the FileChooser and try to pick up the
-     * "file type" combo box
+     * Disable the FileChooser's "file type" combo box
      * 
+     * @param container The container
+     * @param state The state to set
      * @return 
      */
-    private JComboBox getFileTypeComboBox() {
-        Component[] components = FileChooserOpen.getComponents();
+    private void setFyleTypeComboBoxEnabled(Container container, boolean state) {
+        
+        for (Component component :container.getComponents()) {
+            if (component instanceof JComboBox) {
+                ComboBoxModel model = ((JComboBox) component).getModel();
 
-        // Pick the FileType ComboBox from the components
-        for (Component component : components) {
-            if (!(component instanceof JComboBox)) {
-                continue;
-            }
-            
-            ComboBoxModel model = ((JComboBox) component).getModel();
-            
-            int size = model.getSize();
-            System.out.println(size);
-            for (int i = 0; i < size; i++) {
-                if (model.getElementAt(i).toString().equals(lang.getString("FileChooser.acceptAllFileFilterText"))) {
-                    return (JComboBox) component;
+                int size = model.getSize();
+                
+                for (int i = 0; i < size; i++) {
+                    if (model.getElementAt(i).toString().contains("AcceptAllFileFilter")) {
+                        ((JComboBox) component).setEnabled(state);
+                    }
                 }
+            } else if (component instanceof Container) {
+                setFyleTypeComboBoxEnabled((Container) component, state);
             }
         }
-        
-        return null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
