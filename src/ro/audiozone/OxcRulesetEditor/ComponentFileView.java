@@ -20,6 +20,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FilenameFilter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
@@ -37,27 +38,16 @@ public class ComponentFileView extends FileView{
     final private String imagesStorage = "/ro/audiozone/OxcRulesetEditor/Images/";
     
     /**
-     * Marker for windows OS
-     */
-    final private boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("win");
-    
-    /**
-     * Set a limit for the files scanned to determine if a certain directory contains
-     * rulesets or not (should speed up directory scanning when there are a lot of files in them)
-     */
-    final private int fileScanLimit = 10;
-    
-    /**
      * Image to be used for directories that contain rulesets
      */
-    final private Icon rulesetDirecotryIcon;
+    final private Icon rulesetDirectoryIcon;
     
     /**
      * Class initialization
      */
     public ComponentFileView() {
         super();
-        rulesetDirecotryIcon = generateSpecificRulesetDirectoryIcon();
+        rulesetDirectoryIcon = generateSpecificRulesetDirectoryIcon();
     }
     
     @Override
@@ -72,11 +62,12 @@ public class ComponentFileView extends FileView{
             return null;
         }
 
-        if (!extension.equals(ServiceConfiguration.DEFAULT_RULESET_EXTENSION)) {
-            return null;
+        if (extension.equals(ServiceConfiguration.DEFAULT_RULESET_EXTENSION)) {
+            return new ImageIcon(getClass().getResource(imagesStorage + "icon-openxcom-16.png"));
         }
 
-        return new ImageIcon(getClass().getResource(imagesStorage + "icon-openxcom-16.png"));
+        // Default icon if not a ruleset file
+        return null;
     }
 
     /**
@@ -86,62 +77,26 @@ public class ComponentFileView extends FileView{
      * @return 
      */
     private Icon getIconForDirectory(File folder) {
-        // If for some reason this is not a folder of sorts...
+        // If for some reason this is not a proper object...
         if (null == folder) {
             return null;
         }
         
-        // Check for root folders on Windows
-        if (isWindows && null == folder.getParentFile()) {
-            return null;
-        }
-        
-        File[] files = folder.listFiles();
+        // Filter the files in the folder for .rul files
+        File[] files = folder.listFiles(new FilenameFilter() {
+
+            @Override
+            public boolean accept(File directory, String name) {
+                String termination = "." + ServiceConfiguration.DEFAULT_RULESET_EXTENSION;
+                return name.toLowerCase().endsWith(termination);
+            }
+        });
 
         if (null == files || 0 == files.length) {
             return null;
         }
         
-        // Scan files in the folder to determine if it contains ruleset files
-        int scannedFiles = 0;
-        for (File fileEntry : files) {
-            // Just in case we get a null file pointer (who knows...)
-            if (null == fileEntry) {
-                continue;
-            }
-            
-            // Ignore directories
-            if (!fileEntry.isFile()) {
-                continue;
-            }
-
-            // Ignore hidden files
-            if (fileEntry.getName().startsWith(".")) {
-                continue;
-            }
-            
-            // Increment the file scan counter
-            scannedFiles++;
-            
-            // Stop if the scan limit was reached
-            if (scannedFiles > fileScanLimit) {
-                break;
-            }
-            
-            String fileExtension = getExtension(fileEntry);
-            
-            // No extension? Move to the next file
-            if (null == fileExtension) {
-                continue;
-            }
-            
-            if (fileExtension.equals(ServiceConfiguration.DEFAULT_RULESET_EXTENSION)) {
-                return rulesetDirecotryIcon;
-            }
-        }
-
-        // Default system icon if no ruleset found
-        return null;
+        return rulesetDirectoryIcon;
     }
     
     /**
@@ -171,21 +126,22 @@ public class ComponentFileView extends FileView{
         // Load the images
         Icon directoryIcon = UIManager.getIcon("FileView.directoryIcon");
         Icon additionalIcon = new ImageIcon(getClass().getResource(imagesStorage + "icon-ruleset-directory-overlay-16.png"));
-        
-        BufferedImage imgBg, imgFg;
 
-        imgBg = new BufferedImage(directoryIcon.getIconWidth(), directoryIcon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+        // Generate buffered image from the directory icon
+        BufferedImage imgBg = new BufferedImage(directoryIcon.getIconWidth(), directoryIcon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
 
         Graphics gBg = imgBg.createGraphics();
         directoryIcon.paintIcon(null, gBg, 0, 0);
         gBg.dispose();
 
-        imgFg = new BufferedImage(additionalIcon.getIconWidth(), additionalIcon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+        // Generate buffered image from the overlay icon
+        BufferedImage imgFg = new BufferedImage(additionalIcon.getIconWidth(), additionalIcon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
 
         Graphics gFg = imgFg.createGraphics();
         additionalIcon.paintIcon(null, gFg, 0, 0);
         gFg.dispose();
         
+        // Generate the combined icon by first drawing the platform-specific directory icon and then drawing the overlay icon over it
         final BufferedImage combinedIcon = new BufferedImage(imgBg.getHeight(), imgBg.getWidth(), BufferedImage.TYPE_INT_ARGB);
         
         Graphics2D g = combinedIcon.createGraphics();
@@ -194,6 +150,6 @@ public class ComponentFileView extends FileView{
         g.drawImage(imgFg, 0, 0, null);
         g.dispose();
         
-        return new ImageIcon(combinedIcon);
+        return (Icon) new ImageIcon(combinedIcon);
     }
 }
