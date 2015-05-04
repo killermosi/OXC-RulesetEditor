@@ -23,7 +23,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
-import javax.swing.plaf.basic.BasicFileChooserUI;
 
 /**
  * Main application window
@@ -292,11 +291,6 @@ public class WindowMain extends javax.swing.JFrame {
      * Customize some global UI Manager elements
      */
     private void customizeUIManagerElements() {
-        System.out.println(UIManager.getIcon("FileView.directoryIcon"));
-        
-        UIManager.put("FileView.directoryIcon", new ImageIcon(getClass().getResource(imagesStorage + "icon-oxygen-inode-directory-16.png")));
-        
-        System.out.println(UIManager.getIcon("FileView.directoryIcon"));
         
         String[] labels = {
             "FileChooser.acceptAllFileFilterText",

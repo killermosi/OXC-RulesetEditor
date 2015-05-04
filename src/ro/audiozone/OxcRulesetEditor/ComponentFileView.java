@@ -16,9 +16,13 @@
  */
 package ro.audiozone.OxcRulesetEditor;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileView;
 
 /**
@@ -44,26 +48,32 @@ public class ComponentFileView extends FileView{
     final private int fileScanLimit = 10;
     
     /**
+     * Image to be used for directories that contain rulesets
+     */
+    final private Icon rulesetDirecotryIcon;
+    
+    /**
      * Class initialization
      */
     public ComponentFileView() {
         super();
+        rulesetDirecotryIcon = generateSpecificRulesetDirectoryIcon();
     }
     
     @Override
     public Icon getIcon(File file) {
         if (file.isDirectory()) {
-            return null;// getIconForDirectory(file);
+            return getIconForDirectory(file);
         }
 
         String extension = getExtension(file);
 
-        if (null == extension || extension.equals("")) {
+        if (null == extension) {
             return null;
         }
 
         if (!extension.equals(ServiceConfiguration.DEFAULT_RULESET_EXTENSION)) {
-            return super.getIcon(file);
+            return null;
         }
 
         return new ImageIcon(getClass().getResource(imagesStorage + "icon-openxcom-16.png"));
@@ -89,7 +99,7 @@ public class ComponentFileView extends FileView{
         File[] files = folder.listFiles();
 
         if (null == files || 0 == files.length) {
-            return getDefaultFolderIcon();
+            return null;
         }
         
         // Scan files in the folder to determine if it contains ruleset files
@@ -126,17 +136,12 @@ public class ComponentFileView extends FileView{
             }
             
             if (fileExtension.equals(ServiceConfiguration.DEFAULT_RULESET_EXTENSION)) {
-                return new ImageIcon(getClass().getResource(imagesStorage + "icon-oxygen-openxcom-inode-directory-16.png"));
+                return rulesetDirecotryIcon;
             }
         }
 
-        // Default icon
-        return getDefaultFolderIcon();
-    }
-    
-    private Icon getDefaultFolderIcon()
-    {
-        return new ImageIcon(getClass().getResource(imagesStorage + "icon-oxygen-inode-directory-16.png"));
+        // Default system icon if no ruleset found
+        return null;
     }
     
     /**
@@ -154,5 +159,41 @@ public class ComponentFileView extends FileView{
             ext = s.substring(i+1).toLowerCase();
         }
         return ext;
+    }
+    
+    /**
+     * Generate a specific directory icon for directories containing rulesets by combining
+     * the default directory icon with a (slightly) a smaller version of the application icon
+     * 
+     * @return 
+     */
+    private Icon generateSpecificRulesetDirectoryIcon() {
+        // Load the images
+        Icon directoryIcon = UIManager.getIcon("FileView.directoryIcon");
+        Icon additionalIcon = new ImageIcon(getClass().getResource(imagesStorage + "icon-ruleset-directory-overlay-16.png"));
+        
+        BufferedImage imgBg, imgFg;
+
+        imgBg = new BufferedImage(directoryIcon.getIconWidth(), directoryIcon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        Graphics gBg = imgBg.createGraphics();
+        directoryIcon.paintIcon(null, gBg, 0, 0);
+        gBg.dispose();
+
+        imgFg = new BufferedImage(additionalIcon.getIconWidth(), additionalIcon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        Graphics gFg = imgFg.createGraphics();
+        additionalIcon.paintIcon(null, gFg, 0, 0);
+        gFg.dispose();
+        
+        final BufferedImage combinedIcon = new BufferedImage(imgBg.getHeight(), imgBg.getWidth(), BufferedImage.TYPE_INT_ARGB);
+        
+        Graphics2D g = combinedIcon.createGraphics();
+        
+        g.drawImage(imgBg, 0, 0, null);
+        g.drawImage(imgFg, 0, 0, null);
+        g.dispose();
+        
+        return new ImageIcon(combinedIcon);
     }
 }
