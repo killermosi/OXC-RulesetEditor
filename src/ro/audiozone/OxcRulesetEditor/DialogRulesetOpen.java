@@ -22,7 +22,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JPanel;
 
 /**
  * Handles opening rulesets (single or split)
@@ -179,6 +178,11 @@ public class DialogRulesetOpen extends DialogAbstract {
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_BtnCancelActionPerformed
 
+    /**
+     * Handle window closing event
+     * 
+     * @param evt The even
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // Save the position and size of the dialog in the session for a better UX
         int[] positionAndSize = {getX(), getY(), getWidth(), getHeight()};
@@ -191,13 +195,18 @@ public class DialogRulesetOpen extends DialogAbstract {
         config.setSessionData("DialogRulesetOpen.LastOpenSplitRule", SplitRulesetFileToggleButton.isSelected());
     }//GEN-LAST:event_formWindowClosing
 
+    /**
+     * Handle ruleset selection type change
+     * 
+     * @param evt The event
+     */
     private void SplitRulesetFileToggleButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SplitRulesetFileToggleButtonItemStateChanged
         if (SplitRulesetFileToggleButton.isSelected()) {
             FileChooserOpen.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-            setFyleTypeComboBoxEnabled(FileChooserOpen, false);
+            setFileTypeComboBoxEnabled(FileChooserOpen, false);
         } else {
             FileChooserOpen.setFileSelectionMode(javax.swing.JFileChooser.FILES_ONLY);
-            setFyleTypeComboBoxEnabled(FileChooserOpen, true);
+            setFileTypeComboBoxEnabled(FileChooserOpen, true);
         }
     }//GEN-LAST:event_SplitRulesetFileToggleButtonItemStateChanged
 
@@ -246,13 +255,14 @@ public class DialogRulesetOpen extends DialogAbstract {
     }
     
     /**
-     * Disable the FileChooser's "file type" combo box
+     * Enable/disable the FileChooser's "file type" combo box (a bit hackish, but it seems
+     * that there is no other alternative to this approach
      * 
      * @param container The container
      * @param state The state to set
      * @return 
      */
-    private void setFyleTypeComboBoxEnabled(Container container, boolean state) {
+    private void setFileTypeComboBoxEnabled(Container container, boolean state) {
         
         for (Component component :container.getComponents()) {
             if (component instanceof JComboBox) {
@@ -266,7 +276,7 @@ public class DialogRulesetOpen extends DialogAbstract {
                     }
                 }
             } else if (component instanceof Container) {
-                setFyleTypeComboBoxEnabled((Container) component, state);
+                setFileTypeComboBoxEnabled((Container) component, state);
             }
         }
     }
