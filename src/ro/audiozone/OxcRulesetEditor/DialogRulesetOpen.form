@@ -87,6 +87,9 @@
       <Properties>
         <Property name="controlButtonsAreShown" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FileChooserOpenActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BtnCancel">
       <Properties>
@@ -110,6 +113,9 @@
           <Connection code="lang.getString(&quot;DialogOpenRuleset.BtnOpen.Text&quot;)" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnOpenActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="Separator">
     </Component>

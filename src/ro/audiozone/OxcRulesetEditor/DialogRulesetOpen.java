@@ -103,6 +103,11 @@ public class DialogRulesetOpen extends DialogAbstract {
         });
 
         FileChooserOpen.setControlButtonsAreShown(false);
+        FileChooserOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FileChooserOpenActionPerformed(evt);
+            }
+        });
 
         BtnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-dialog-cancel-32.png"))); // NOI18N
         BtnCancel.setText(lang.getString("DialogOpenRuleset.BtnCancel.Text"));
@@ -114,6 +119,11 @@ public class DialogRulesetOpen extends DialogAbstract {
 
         BtnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-dialog-ok-32.png"))); // NOI18N
         BtnOpen.setText(lang.getString("DialogOpenRuleset.BtnOpen.Text"));
+        BtnOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnOpenActionPerformed(evt);
+            }
+        });
 
         RulesetTypeGroup.add(SingleRulesetFileToggleButton);
         SingleRulesetFileToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-view-list-text-32.png"))); // NOI18N
@@ -210,6 +220,50 @@ public class DialogRulesetOpen extends DialogAbstract {
         }
     }//GEN-LAST:event_SplitRulesetFileToggleButtonItemStateChanged
 
+    private void FileChooserOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileChooserOpenActionPerformed
+        loadRuleset();
+    }//GEN-LAST:event_FileChooserOpenActionPerformed
+
+    private void BtnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnOpenActionPerformed
+        loadRuleset();
+    }//GEN-LAST:event_BtnOpenActionPerformed
+
+    /**
+     * Handle ruleset loading
+     */
+    private void loadRuleset() {
+        boolean splitRulesetMode = SplitRulesetFileToggleButton.isSelected();
+        
+        File selection = FileChooserOpen.getSelectedFile();
+        
+        // Do nothing if nothig is selected
+        if (null == selection) {
+            return;
+        }
+        
+        // Dive in the selected directory so that the user won't asume that he can click "open" on a directory,
+        // it needs to enter one first
+        if (
+                splitRulesetMode
+                && selection.isDirectory()
+                && selection.exists()
+                && !selection.getAbsolutePath().equals(FileChooserOpen.getCurrentDirectory().toString())
+        ) {
+            FileChooserOpen.setCurrentDirectory(selection);
+            return;
+        }
+        
+        // Do nothing if the chooser reports that the wrong type element is selected
+        if (
+                (splitRulesetMode && selection.isFile())
+                || (!splitRulesetMode && selection.isDirectory())
+        ) {
+            return;
+        }
+        
+        // Signal try an load the file in the ruleset service
+        System.out.println(selection);
+    }
     /**
      * @param args the command line arguments
      */
