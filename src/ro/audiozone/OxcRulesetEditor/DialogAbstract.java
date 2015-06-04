@@ -156,6 +156,7 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
                 for (int i = 0; i < size; i++) {
                     if (model.getElementAt(i).toString().contains("AcceptAllFileFilter")) {
                         ((JComboBox) component).getParent().setVisible(false);
+                        return;
                     }
                 }
             } else if (component instanceof Container) {
