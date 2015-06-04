@@ -17,11 +17,8 @@
 package ro.audiozone.OxcRulesetEditor;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import javax.swing.ComboBoxModel;
-import javax.swing.JComboBox;
 
 /**
  * Handles opening rulesets (single or split)
@@ -51,13 +48,6 @@ public class DialogRulesetOpen extends DialogAbstract {
         }
         
         FileChooserOpen.setCurrentDirectory(currentDirectory);
-        
-        // Set the rule type selector to the proper state from the session (if available) or from the config
-        if (null != config.getSessionData("DialogRulesetOpen.LastOpenSplitRule")) {
-            SplitRulesetFileToggleButton.setSelected((boolean) config.getSessionData("DialogRulesetOpen.LastOpenSplitRule"));
-        } else {
-            SplitRulesetFileToggleButton.setSelected(config.isFilesLastOpenSplitRule());
-        }
     }
     
     @Override
@@ -84,14 +74,10 @@ public class DialogRulesetOpen extends DialogAbstract {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        RulesetTypeGroup = new javax.swing.ButtonGroup();
         FileChooserOpen = new javax.swing.JFileChooser();
         BtnCancel = new javax.swing.JButton();
         BtnOpen = new javax.swing.JButton();
         Separator = new javax.swing.JSeparator();
-        SingleRulesetFileToggleButton = new javax.swing.JToggleButton();
-        SplitRulesetFileToggleButton = new javax.swing.JToggleButton();
-        LabelRulesetType = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(lang.getString("DialogOpenRuleset.Title"));
@@ -103,6 +89,7 @@ public class DialogRulesetOpen extends DialogAbstract {
         });
 
         FileChooserOpen.setControlButtonsAreShown(false);
+        FileChooserOpen.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
         FileChooserOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FileChooserOpenActionPerformed(evt);
@@ -125,22 +112,6 @@ public class DialogRulesetOpen extends DialogAbstract {
             }
         });
 
-        RulesetTypeGroup.add(SingleRulesetFileToggleButton);
-        SingleRulesetFileToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-view-list-text-32.png"))); // NOI18N
-        SingleRulesetFileToggleButton.setSelected(true);
-        SingleRulesetFileToggleButton.setToolTipText(lang.getString("DialogOpenRuleset.SingleRulesetFileToggleButton.tooltip"));
-
-        RulesetTypeGroup.add(SplitRulesetFileToggleButton);
-        SplitRulesetFileToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ro/audiozone/OxcRulesetEditor/Images/icon-oxygen-view-list-tree-32.png"))); // NOI18N
-        SplitRulesetFileToggleButton.setToolTipText(lang.getString("DialogOpenRuleset.SplitRulesetFileToggleButton.tooltip"));
-        SplitRulesetFileToggleButton.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                SplitRulesetFileToggleButtonItemStateChanged(evt);
-            }
-        });
-
-        LabelRulesetType.setText(lang.getString("DialogOpenRuleset.LabelRulesetType.Text"));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,12 +122,7 @@ public class DialogRulesetOpen extends DialogAbstract {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Separator)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(LabelRulesetType)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SingleRulesetFileToggleButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SplitRulesetFileToggleButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(BtnOpen)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnCancel)))
@@ -169,15 +135,9 @@ public class DialogRulesetOpen extends DialogAbstract {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Separator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SingleRulesetFileToggleButton)
-                            .addComponent(SplitRulesetFileToggleButton))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BtnCancel)
-                            .addComponent(BtnOpen)))
-                    .addComponent(LabelRulesetType, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnCancel)
+                    .addComponent(BtnOpen))
                 .addContainerGap())
         );
 
@@ -200,25 +160,7 @@ public class DialogRulesetOpen extends DialogAbstract {
         
         // Save the current directory in the session (also for a better UX)
         config.setSessionData("DialogRulesetOpen.LastOpenDirectory", FileChooserOpen.getCurrentDirectory().toString());
-        
-        // And save the current ruleset selection type (this too for a better UX)
-        config.setSessionData("DialogRulesetOpen.LastOpenSplitRule", SplitRulesetFileToggleButton.isSelected());
     }//GEN-LAST:event_formWindowClosing
-
-    /**
-     * Handle ruleset selection type change
-     * 
-     * @param evt The event
-     */
-    private void SplitRulesetFileToggleButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SplitRulesetFileToggleButtonItemStateChanged
-        if (SplitRulesetFileToggleButton.isSelected()) {
-            FileChooserOpen.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-            setFileTypeComboBoxEnabled(FileChooserOpen, false);
-        } else {
-            FileChooserOpen.setFileSelectionMode(javax.swing.JFileChooser.FILES_ONLY);
-            setFileTypeComboBoxEnabled(FileChooserOpen, true);
-        }
-    }//GEN-LAST:event_SplitRulesetFileToggleButtonItemStateChanged
 
     private void FileChooserOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileChooserOpenActionPerformed
         loadRuleset();
@@ -232,7 +174,6 @@ public class DialogRulesetOpen extends DialogAbstract {
      * Handle ruleset loading
      */
     private void loadRuleset() {
-        boolean splitRulesetMode = SplitRulesetFileToggleButton.isSelected();
         
         File selection = FileChooserOpen.getSelectedFile();
         
@@ -244,20 +185,10 @@ public class DialogRulesetOpen extends DialogAbstract {
         // Dive in the selected directory so that the user won't asume that he can click "open" on a directory,
         // it needs to enter one first
         if (
-                splitRulesetMode
-                && selection.isDirectory()
-                && selection.exists()
+                selection.exists()
                 && !selection.getAbsolutePath().equals(FileChooserOpen.getCurrentDirectory().toString())
         ) {
             FileChooserOpen.setCurrentDirectory(selection);
-            return;
-        }
-        
-        // Do nothing if the chooser reports that the wrong type element is selected
-        if (
-                (splitRulesetMode && selection.isFile())
-                || (!splitRulesetMode && selection.isDirectory())
-        ) {
             return;
         }
         
@@ -307,42 +238,11 @@ public class DialogRulesetOpen extends DialogAbstract {
             }
         });
     }
-    
-    /**
-     * Enable/disable the FileChooser's "file type" combo box (a bit hackish, but it seems
-     * that there is no other alternative to this approach
-     * 
-     * @param container The container
-     * @param state The state to set
-     * @return 
-     */
-    private void setFileTypeComboBoxEnabled(Container container, boolean state) {
-        
-        for (Component component :container.getComponents()) {
-            if (component instanceof JComboBox) {
-                ComboBoxModel model = ((JComboBox) component).getModel();
-
-                int size = model.getSize();
-                
-                for (int i = 0; i < size; i++) {
-                    if (model.getElementAt(i).toString().contains("AcceptAllFileFilter")) {
-                        ((JComboBox) component).setEnabled(state);
-                    }
-                }
-            } else if (component instanceof Container) {
-                setFileTypeComboBoxEnabled((Container) component, state);
-            }
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCancel;
     private javax.swing.JButton BtnOpen;
     private javax.swing.JFileChooser FileChooserOpen;
-    private javax.swing.JLabel LabelRulesetType;
-    private javax.swing.ButtonGroup RulesetTypeGroup;
     private javax.swing.JSeparator Separator;
-    private javax.swing.JToggleButton SingleRulesetFileToggleButton;
-    private javax.swing.JToggleButton SplitRulesetFileToggleButton;
     // End of variables declaration//GEN-END:variables
 }

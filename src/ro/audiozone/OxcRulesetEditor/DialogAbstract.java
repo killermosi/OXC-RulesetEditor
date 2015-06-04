@@ -22,12 +22,12 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Provides basic amenities for dialogs
@@ -90,19 +90,13 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
         /* Use the OXC icon for .rul files */
         chooser.setFileView(new ComponentFileView());
         
-        /* Set the file filter to .rul & all files */
-        String rulesetName = lang.getString("FileChooser.RulesetFileName");
-        FileFilter filter = new FileNameExtensionFilter(
-                String.format(rulesetName, "." + ServiceConfiguration.DEFAULT_RULESET_EXTENSION),
-                ServiceConfiguration.DEFAULT_RULESET_EXTENSION
-        );
-        chooser.addChoosableFileFilter(filter);
-        chooser.setFileFilter(filter);
-        
         /* Remove the "New Folder button from the chooser */
         if (removeNFB) {
             removeNewFolderButton(chooser);
         }
+        
+        /* Disable the "file type" label and combo box*/
+        disableFileTypeSelector(chooser);
     }
     
     /**
@@ -142,4 +136,31 @@ public abstract class DialogAbstract extends javax.swing.JDialog {
             }
         }
     }
+    
+    /**
+     * Disable the FileChooser's "file type" combo box (a bit hackish, but it seems
+     * that there is no other alternative to this approach)
+     * 
+     * @param container The container
+     * @param state The state to set
+     * @return 
+     */
+    private void disableFileTypeSelector(Container container) {
+        
+        for (Component component :container.getComponents()) {
+            if (component instanceof JComboBox) {
+                ComboBoxModel model = ((JComboBox) component).getModel();
+
+                int size = model.getSize();
+                
+                for (int i = 0; i < size; i++) {
+                    if (model.getElementAt(i).toString().contains("AcceptAllFileFilter")) {
+                        ((JComboBox) component).getParent().setVisible(false);
+                    }
+                }
+            } else if (component instanceof Container) {
+                disableFileTypeSelector((Container) component);
+            }
+        }
+    }    
 }

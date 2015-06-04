@@ -56,17 +56,7 @@ public class ComponentFileView extends FileView{
             return getIconForDirectory(file);
         }
 
-        String extension = getExtension(file);
-
-        if (null == extension) {
-            return null;
-        }
-
-        if (extension.equals(ServiceConfiguration.DEFAULT_RULESET_EXTENSION)) {
-            return new ImageIcon(getClass().getResource(imagesStorage + "icon-openxcom-16.png"));
-        }
-
-        // Default icon if not a ruleset file
+        // Default icon for everything else
         return null;
     }
 
@@ -87,8 +77,7 @@ public class ComponentFileView extends FileView{
 
             @Override
             public boolean accept(File directory, String name) {
-                String termination = "." + ServiceConfiguration.DEFAULT_RULESET_EXTENSION;
-                return name.toLowerCase().endsWith(termination);
+                return name.toLowerCase().equals(ServiceConfiguration.RULESET_METAFILE);
             }
         });
 

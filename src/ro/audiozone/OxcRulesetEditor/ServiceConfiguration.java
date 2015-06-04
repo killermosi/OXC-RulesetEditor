@@ -30,9 +30,15 @@ import java.util.Map;
  */
 public class ServiceConfiguration {
     /**
-     * The default ruleset extension
+     * The ruleset suffix (dot extension)
      */
-    public final static String DEFAULT_RULESET_EXTENSION = "rul";
+    public final static String RULESET_SUFFIX = ".rul";
+    
+    /**
+     * The ruleset metafile name
+     */
+    public final static String RULESET_METAFILE = "metadata.yml";
+    
     /**
      * Singleton instance
      */
@@ -74,8 +80,7 @@ public class ServiceConfiguration {
     private boolean disclaimerShown = false;
     private boolean disclaimerDoNotShowAgain = false;
     private String filesLastOpenDirectory = System.getProperty("user.home");
-    private boolean filesLastOpenSplitRule = false;
-
+    
     /**
      * Currently selected language - stores the language that was selected
      * by the user in the configuration dialog to be applied on the next application start
@@ -195,8 +200,6 @@ public class ServiceConfiguration {
         // [Files]
         // - LastOpenDirectory
         filesLastOpenDirectory = iniFile.ReadString("Files", "LastOpenDirectory", filesLastOpenDirectory);
-        // - LastOpenSplitRule
-        filesLastOpenSplitRule = iniFile.ReadBool("Files", "LastOpenSplitRule", filesLastOpenSplitRule);
     }
     
     /**
@@ -216,7 +219,6 @@ public class ServiceConfiguration {
         iniFile.WriteBool("Disclaimer", "Shown", disclaimerShown);
         iniFile.WriteBool("Disclaimer", "DoNotShowAgain", disclaimerDoNotShowAgain);
         iniFile.WriteString("Files", "LastOpenDirectory", filesLastOpenDirectory);
-        iniFile.WriteBool("Files", "LastOpenSplitRule", filesLastOpenSplitRule);
         
         // And write it
         return iniFile.UpdateFile();
@@ -445,23 +447,5 @@ public class ServiceConfiguration {
      */
     public void setFilesLastOpenDirectory(String directory) {
         filesLastOpenDirectory = directory;
-    }
-    
-    /**
-     * If the last opened rule was a split one
-     * 
-     * @return 
-     */
-    public boolean isFilesLastOpenSplitRule() {
-        return filesLastOpenSplitRule;
-    }
-    
-    /**
-     * Setter for the last opened rule state
-     * 
-     * @param splitRule If the rule was split or not
-     */
-    public void setFilesLastOpenSplitRule(boolean splitRule) {
-        filesLastOpenSplitRule = splitRule;
     }
 }
